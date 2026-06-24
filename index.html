@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Interactive mission control dashboard and system simulator for the Project Blue-Water Rover Autonomous Surface Vehicle (ASV) unassisted voyage from Charleston to Tampa Bay.">
+  <title>Blue-Water Rover ASV - Mission Control & Simulator</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+  <!-- Dashboard Header -->
+  <header>
+    <div class="logo-section">
+      <div class="logo-icon" id="header-logo-icon"></div>
+      <div class="title-group">
+        <h1>Blue-Water Rover Mission Control</h1>
+        <p>Project ASV-01 | Charleston, SC to Tampa Bay, FL</p>
+      </div>
+    </div>
+    
+    <div class="global-controls">
+      <div class="control-item">
+        <label for="weather-select">Weather System</label>
+        <select id="weather-select" class="select-input">
+          <option value="sunny">Sunny (Clear Sky)</option>
+          <option value="overcast">Overcast (Cloudy)</option>
+          <option value="stormy">Storm Front (Severe)</option>
+          <option value="night">Night (No Daylight)</option>
+        </select>
+      </div>
+      
+      <div class="control-item">
+        <label for="sim-speed-select">Simulation Speed</label>
+        <select id="sim-speed-select" class="select-input">
+          <option value="1">1x (Real-time)</option>
+          <option value="5">5x (Accelerated)</option>
+          <option value="20">20x (Fast Cruise)</option>
+          <option value="60">60x (Time Lapse)</option>
+          <option value="0">Paused</option>
+        </select>
+      </div>
+      
+      <div class="control-item">
+        <label>Telemetry Status</label>
+        <div style="display: flex; align-items: center; gap: 0.5rem; margin-top: 0.25rem;">
+          <span class="status-dot active" id="telemetry-status-dot"></span>
+          <span id="telemetry-status-text" style="font-family: var(--font-mono); font-size: 0.8rem; font-weight: 500;">MeshCore: Connected</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main System Layout -->
+  <main class="dashboard-grid">
+    
+    <!-- LEFT PANEL: System status, metrics and power flow -->
+    <section class="panel" id="status-panel">
+      <div class="panel-header">
+        <h2 class="panel-title">
+          <span class="status-dot active" id="sys-diagnostic-dot"></span>
+          Telemetry & Status
+        </h2>
+        <span style="font-family: var(--font-mono); font-size: 0.75rem;" id="simulation-time">16:42:38</span>
+      </div>
+      <div class="panel-body">
+        
+        <!-- Power Metrics -->
+        <div class="metric-row">
+          <div class="metric-card green" id="card-battery">
+            <span class="metric-label">Battery Level</span>
+            <div class="metric-value">
+              <span id="val-battery-pct">82.5</span>
+              <span class="metric-unit">%</span>
+            </div>
+          </div>
+          <div class="metric-card cyan" id="card-net-power">
+            <span class="metric-label">Net Balance</span>
+            <div class="metric-value">
+              <span id="val-net-power">+10.0</span>
+              <span class="metric-unit">W</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="metric-row">
+          <div class="metric-card amber" id="card-solar">
+            <span class="metric-label">Solar Harvest</span>
+            <div class="metric-value">
+              <span id="val-solar-watts">100.0</span>
+              <span class="metric-unit">W</span>
+            </div>
+          </div>
+          <div class="metric-card" id="card-propulsion">
+            <span class="metric-label">Propulsion Draw</span>
+            <div class="metric-value">
+              <span id="val-prop-watts">60.0</span>
+              <span class="metric-unit">W</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- System Power Flow Visualizer -->
+        <div class="power-flow-container">
+          <div class="metric-label" style="margin-bottom: 0.25rem;">Power Grid Model</div>
+          
+          <div class="flow-node-row">
+            <!-- Solar Generation -->
+            <div class="flow-node solar" id="flow-node-solar">
+              <span>Solar</span>
+              <span class="flow-power-value" id="flow-val-solar">100W</span>
+            </div>
+            
+            <!-- Battery Bank -->
+            <div class="flow-node battery" id="flow-node-battery">
+              <span>Battery</span>
+              <span class="flow-power-value" id="flow-val-battery">LiFePO4</span>
+            </div>
+            
+            <!-- System Loads -->
+            <div class="flow-node loads" id="flow-node-loads">
+              <span>Loads</span>
+              <span class="flow-power-value" id="flow-val-loads">90W</span>
+            </div>
+            
+            <div class="flow-arrow-line" id="flow-connector-line"></div>
+          </div>
+          
+          <!-- Net Balance Bar -->
+          <div class="power-balance-bar">
+            <div class="power-balance-fill" id="power-balance-fill-bar" style="width: 55%; background-color: var(--color-green);"></div>
+          </div>
+          <!-- Extension Bay Power Rails Indicator -->
+          <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.7rem; margin-top: 0.5rem; border-top: 1px dashed rgba(255,255,255,0.05); padding-top: 0.4rem;">
+            <span style="color: var(--text-secondary);">Extension Power Hook:</span>
+            <span id="val-power-hook-status" class="status-badge-inline active">ACTIVE (5V/12V ON)</span>
+          </div>
+        </div>
+
+        <!-- Position Metrics -->
+        <div class="metric-row">
+          <div class="metric-card" id="card-latitude">
+            <span class="metric-label">Latitude</span>
+            <div class="metric-value" style="font-size: 1rem;">
+              <span id="val-latitude">27.7600° N</span>
+            </div>
+          </div>
+          <div class="metric-card" id="card-longitude">
+            <span class="metric-label">Longitude</span>
+            <div class="metric-value" style="font-size: 1rem;">
+              <span id="val-longitude">82.6300° W</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="metric-row">
+          <div class="metric-card" id="card-speed">
+            <span class="metric-label">Speed / Heading</span>
+            <div class="metric-value" style="font-size: 1.1rem;">
+              <span id="val-speed">5.0</span> <span class="metric-unit" style="font-size: 0.65rem;">kt</span>
+              <span style="color: var(--text-secondary); margin: 0 0.25rem;">|</span>
+              <span id="val-heading">180°</span>
+            </div>
+          </div>
+          <div class="metric-card" id="card-progress">
+            <span class="metric-label">Voyage Progress</span>
+            <div class="metric-value" style="font-size: 1.1rem;">
+              <span id="val-dist-pct">0</span><span class="metric-unit">%</span>
+              <span style="font-size: 0.65rem; color: var(--text-secondary); margin-left: 0.25rem;" id="val-dist-miles">0/650nm</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Simulation Overlays & Toggles -->
+        <div style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 6px; padding: 0.75rem; display: flex; flex-direction: column; gap: 0.5rem;">
+          <div class="switch-row">
+            <label for="throttle-toggle" style="font-size: 0.75rem; color: var(--text-primary); cursor: pointer;">Software Propulsion Throttling</label>
+            <label class="switch">
+              <input type="checkbox" id="throttle-toggle" checked>
+              <span class="slider"></span>
+            </label>
+          </div>
+          <p style="font-size: 0.65rem; color: var(--text-secondary); line-height: 1.3;">
+            Active power management. Automatically throttles thrust down to lower duty cycles during low light to protect the battery bank from deep discharge.
+          </p>
+        </div>
+
+        <!-- Telemetry Details -->
+        <div style="display: flex; flex-direction: column; gap: 0.25rem; font-size: 0.75rem; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 0.5rem; margin-top: auto;">
+          <div style="display: flex; justify-content: space-between;">
+            <span style="color: var(--text-secondary);">Active Repeater:</span>
+            <span id="val-repeater-name" style="font-family: var(--font-mono); font-weight: 500;">-</span>
+          </div>
+          <div style="display: flex; justify-content: space-between;">
+            <span style="color: var(--text-secondary);">Hop Count:</span>
+            <span id="val-hop-count" style="font-family: var(--font-mono); font-weight: 500;">0</span>
+          </div>
+          <div style="display: flex; justify-content: space-between;">
+            <span style="color: var(--text-secondary);">Signal Strength:</span>
+            <span id="val-rssi" style="font-family: var(--font-mono); font-weight: 500;">-85 dBm</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- CENTER PANEL: Glowing Tactical SVG Map and Command Console Terminal -->
+    <section class="panel map-panel" id="tactical-panel">
+      <div class="panel-header">
+        <h2 class="panel-title">Tactical Mission Visualizer</h2>
+        <div style="display: flex; align-items: center; gap: 0.5rem;">
+          <span style="font-size: 0.7rem; color: var(--text-secondary); text-transform: uppercase;">Double-click map to add waypoints</span>
+        </div>
+      </div>
+      
+      <!-- Live Map Canvas -->
+      <div class="map-container" id="tactical-map-frame">
+        <svg class="tactical-svg" id="tactical-svg-element" viewBox="0 0 600 800">
+          
+          <!-- Background Grid Pattern -->
+          <defs>
+            <pattern id="map-grid" width="30" height="30" patternUnits="userSpaceOnUse">
+              <path d="M 30 0 L 0 0 0 30" fill="none" class="map-grid-line" />
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#map-grid)" />
+          
+          <!-- Glowing Landmass (Styled Florida / Southern US Coastline) -->
+          <path id="landmass-coast" class="land-mass" d="" />
+          
+          <!-- Original Predefined Route -->
+          <path id="route-path" class="ocean-routes" d="" />
+          
+          <!-- Dynamic waypoints queue visual links -->
+          <path id="waypoints-lines" fill="none" stroke="var(--color-blue)" stroke-width="1.5" stroke-dasharray="2, 4" />
+          
+          <!-- Repeater mesh link lines -->
+          <g id="repeater-links-group"></g>
+          
+          <!-- Active Signal hop path -->
+          <line id="boat-to-repeater-link" class="telemetry-hop-line" x1="0" y1="0" x2="0" y2="0" stroke-width="1.5" style="display: none;" />
+          
+          <!-- Target Waypoint indicators -->
+          <g id="waypoints-group"></g>
+          
+          <!-- AIS Shipping Targets (Option B) -->
+          <g id="ais-ships-group"></g>
+          
+          <!-- Vision Obstacles (Option C) -->
+          <g id="obstacles-group"></g>
+
+          <!-- MeshCore Repeater Nodes -->
+          <g id="repeaters-group"></g>
+          
+          <!-- Autonomous Surface Vehicle (Boat) -->
+          <g id="boat-group" class="boat-icon" transform="translate(0, 0)">
+            <!-- Inner rotating group to make heading rotation clean -->
+            <g id="boat-rotation-group">
+              <!-- LiDAR scanning cone fan -->
+              <path id="lidar-scan-cone" d="M 0 0 L -35 -70 A 75 75 0 0 1 35 -70 Z" fill="rgba(0, 240, 255, 0.05)" stroke="rgba(0, 240, 255, 0.25)" stroke-width="1.5" style="display: none;" />
+              <!-- Dynamic Hull shape (updated via JS) -->
+              <path id="boat-hull-shape" d="M 0 -12 C 4 -6, 5 6, 0 10 C -5 6, -4 -6, 0 -12 Z" fill="rgba(0, 240, 255, 0.15)" stroke="var(--color-cyan)" stroke-width="1.5" />
+              <!-- Heading indicator triangle -->
+              <polygon points="0,-15 -4,-7 4,-7" fill="var(--color-amber)" id="boat-heading-triangle" />
+              <circle r="3" fill="var(--color-cyan)" />
+            </g>
+          </g>
+          
+        </svg>
+      </div>
+
+      <!-- Command Console Terminal -->
+      <div class="panel-body console-panel">
+        <!-- Power rail cutoff warning status inline -->
+        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 0.25rem; margin-bottom: 0.5rem; font-size: 0.7rem;">
+          <span style="color: var(--text-secondary);">Sub-System Rails:</span>
+          <span id="val-power-hook-status" class="status-badge-inline active">ACTIVE (5V/12V ON)</span>
+        </div>
+        <div class="terminal-log" id="console-terminal-log"></div>
+        
+        <form class="console-input-row" id="terminal-input-form" onsubmit="event.preventDefault();">
+          <input type="text" id="terminal-input-text" class="console-input" placeholder="Enter discrete packet command (e.g. NAV:WP,04,27.76,-82.63)..." autocomplete="off">
+          <button type="submit" id="btn-submit-command" class="btn">Send</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- RIGHT PANEL: Tabbed Vessel Design Studio & Mission verification -->
+    <section class="panel" id="controls-calculator-panel" style="display: flex; flex-direction: column;">
+      <!-- Tab Header Navigation -->
+      <div class="panel-header tab-header">
+        <button class="tab-btn active" id="tab-design">Design Lab</button>
+        <button class="tab-btn" id="tab-telemetry">Telemetry</button>
+        <button class="tab-btn" id="tab-math">Verify</button>
+      </div>
+      
+      <div class="panel-body" style="flex: 1; display: flex; flex-direction: column; overflow-y: auto; gap: 0.85rem; padding: 0.85rem;">
+        
+        <!-- Tab 1: Design Studio -->
+        <div id="design-studio-tab" class="tab-content active">
+          <!-- Hull Type Selection -->
+          <div class="config-group">
+            <div class="config-group-title">1. Hull Architecture</div>
+            <div class="design-card-grid">
+              <label class="design-card">
+                <input type="radio" name="design-hull" value="monohull" checked>
+                <div class="design-card-content">
+                  <div class="card-name">Monohull</div>
+                  <div class="card-desc">Sleek Deep-V. Drag: 1.20 Cd, Solar max: 400W. Storm rolling shades panels.</div>
+                </div>
+              </label>
+              <label class="design-card">
+                <input type="radio" name="design-hull" value="catamaran">
+                <div class="design-card-content">
+                  <div class="card-name">Catamaran</div>
+                  <div class="card-desc">Dual pontoons. Drag: 0.85 Cd, Solar max: 600W. Stable deck in rolling seas.</div>
+                </div>
+              </label>
+              <label class="design-card">
+                <input type="radio" name="design-hull" value="trimaran">
+                <div class="design-card-content">
+                  <div class="card-name">Trimaran</div>
+                  <div class="card-desc">Triple hull. Drag: 0.75 Cd, Solar max: 800W. Max surface area & stability.</div>
+                </div>
+              </label>
+            </div>
+          </div>
+          
+          <!-- Propulsion System Selection -->
+          <div class="config-group">
+            <div class="config-group-title">2. Propulsion steering</div>
+            <select id="design-propulsion" class="select-input" style="width: 100%;">
+              <option value="diff_thruster">Dual Brushless (Diff Steering, 60W Cruise)</option>
+              <option value="azimuth_pod">Azimuth Pod Thruster (Active Rudder, 45W Cruise)</option>
+              <option value="wind_hybrid">Wind-Assist Hybrid (Wing-Sail + Pod, 20W Cruise under Wind)</option>
+            </select>
+          </div>
+
+          <!-- Solar Array Selection -->
+          <div class="config-group">
+            <div class="config-group-title">3. Solar Panel Capacity</div>
+            <div style="display: flex; align-items: center; justify-content: space-between;">
+              <span style="font-size: 0.75rem; color: var(--text-secondary);">Array Rated Output:</span>
+              <div style="display: flex; align-items: center; gap: 0.25rem;">
+                <input type="number" id="design-solar-w" class="number-input" value="400" min="200" max="1200" step="100" style="width: 75px;">
+                <span style="font-size: 0.7rem; color: var(--text-secondary);">W</span>
+              </div>
+            </div>
+            <div id="solar-warning-text" style="font-size: 0.65rem; color: var(--color-amber); display: none; margin-top: 0.25rem;">
+              ⚠️ Exceeds deck limit. Catamaran/Trimaran required.
+            </div>
+          </div>
+
+          <!-- Battery Capacity Selection -->
+          <div class="config-group">
+            <div class="config-group-title">4. LiFePO4 Battery Bank</div>
+            <select id="design-battery-ah" class="select-input" style="width: 100%;">
+              <option value="115">48V 115 Ah Bank (5.52 kWh | Baseline)</option>
+              <option value="160">48V 160 Ah Bank (7.68 kWh | Long Range)</option>
+              <option value="230">48V 230 Ah Bank (11.04 kWh | Extreme endurance)</option>
+            </select>
+          </div>
+
+          <!-- Edge Compute Selection -->
+          <div class="config-group">
+            <div class="config-group-title">5. Edge Avionics & COLREGs</div>
+            <div class="design-card-grid">
+              <label class="design-card">
+                <input type="radio" name="design-compute" value="mcu" checked>
+                <div class="design-card-content">
+                  <div class="card-name">Low-Power MCU</div>
+                  <div class="card-desc">STM32 safety core (10W draw). Straight path follower. No obstacle avoidance.</div>
+                </div>
+              </label>
+              <label class="design-card">
+                <input type="radio" name="design-compute" value="rpi5">
+                <div class="design-card-content">
+                  <div class="card-name">Raspberry Pi 5</div>
+                  <div class="card-desc">Edge AI (22W draw). Basic collision avoidance. Starboard avoidance offset.</div>
+                </div>
+              </label>
+              <label class="design-card">
+                <input type="radio" name="design-compute" value="jetson">
+                <div class="design-card-content">
+                  <div class="card-name">Jetson Orin Nano</div>
+                  <div class="card-desc">Deep Learning (35W draw). Dynamic vector COLREGs avoidance & lidar sweep.</div>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <!-- Payloads & Add-ons -->
+          <div class="config-group">
+            <div class="config-group-title">6. Optional Add-ons</div>
+            <div style="display: flex; flex-direction: column; gap: 0.35rem;">
+              <label class="checkbox-container" style="font-size: 0.75rem;">
+                <input type="checkbox" id="opt-satellite">
+                <span class="checkmark"></span>
+                <span class="checkbox-label">Satellite Backup Transceiver (+1.5W)</span>
+              </label>
+              <label class="checkbox-container" style="font-size: 0.75rem;">
+                <input type="checkbox" id="opt-ais">
+                <span class="checkmark"></span>
+                <span class="checkbox-label">AIS Transponder Traffic Feed (+2.0W)</span>
+              </label>
+            </div>
+          </div>
+          
+          <!-- Selected Vessel Physical Stats -->
+          <div class="config-group" style="background: rgba(0, 240, 255, 0.02); border: 1px solid rgba(0, 240, 255, 0.1);">
+            <div class="config-group-title" style="color: var(--color-cyan); margin-bottom: 0.35rem;">Selected Design Physical Specs</div>
+            <div style="display: flex; flex-direction: column; gap: 0.35rem; font-size: 0.75rem;">
+              <div style="display: flex; justify-content: space-between;">
+                <span style="color: var(--text-secondary);">Est. Dry Weight:</span>
+                <span id="stat-weight" style="font-family: var(--font-mono); font-weight: 500;">-</span>
+              </div>
+              <div style="display: flex; justify-content: space-between;">
+                <span style="color: var(--text-secondary);">Hydrodynamic Drag:</span>
+                <span id="stat-drag" style="font-family: var(--font-mono); font-weight: 500;">-</span>
+              </div>
+              <div style="display: flex; justify-content: space-between;">
+                <span style="color: var(--text-secondary);">Solar Deck Deck Limit:</span>
+                <span id="stat-solar-limit" style="font-family: var(--font-mono); font-weight: 500;">-</span>
+              </div>
+              <div style="display: flex; justify-content: space-between;">
+                <span style="color: var(--text-secondary);">Avionics System Draw:</span>
+                <span id="stat-base-load" style="font-family: var(--font-mono); font-weight: 500;">-</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Tab 2: Telemetry & Actions -->
+        <div id="telemetry-actions-tab" class="tab-content" style="display: none;">
+          <div class="config-group">
+            <div class="config-group-title">Command Library Packets</div>
+            <div class="quick-cmds-grid">
+              <button class="btn" id="btn-cmd-telreq">TEL:REQ (Status)</button>
+              <button class="btn" id="btn-cmd-navhold">NAV:HOLD (Loiter)</button>
+            </div>
+            <button class="btn btn-emergency" id="btn-cmd-navkill">NAV:KILL (Emergency Shutdown)</button>
+          </div>
+          
+          <div class="config-group">
+            <div class="config-group-title">Live Grid Load History</div>
+            <div class="chart-container">
+              <svg class="chart-svg" id="power-history-chart-svg"></svg>
+            </div>
+            <div class="chart-legend">
+              <div class="legend-item"><span class="legend-dot" style="background: var(--color-amber);"></span>Solar</div>
+              <div class="legend-item"><span class="legend-dot" style="background: var(--color-red);"></span>Load</div>
+              <div class="legend-item"><span class="legend-dot" style="background: var(--color-green);"></span>SoC</div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Tab 3: Math Verification -->
+        <div id="math-verify-tab" class="tab-content" style="display: none;">
+          <div class="config-group" style="font-size: 0.75rem;">
+            <div class="config-group-title">ESD-01 Equations Config</div>
+            <div class="config-row" style="margin-bottom: 0.35rem;">
+              <label for="cfg-autonomy">Autonomy Target</label>
+              <div style="display: flex; align-items: center; gap: 0.25rem;">
+                <input type="number" id="cfg-autonomy" class="number-input" value="2" min="1" max="10" style="width: 55px;">
+                <span style="color: var(--text-secondary);">Days</span>
+              </div>
+            </div>
+            <div class="config-row" style="margin-bottom: 0.35rem;">
+              <label for="cfg-dod">Max DoD Limit</label>
+              <div style="display: flex; align-items: center; gap: 0.25rem;">
+                <input type="number" id="cfg-dod" class="number-input" value="80" min="10" max="100" style="width: 55px;">
+                <span style="color: var(--text-secondary);">%</span>
+              </div>
+            </div>
+            <div class="config-row" style="margin-bottom: 0.35rem;">
+              <label for="cfg-peak-sun">Peak Sun Hours</label>
+              <div style="display: flex; align-items: center; gap: 0.25rem;">
+                <input type="number" id="cfg-peak-sun" class="number-input" value="5" min="1" max="12" style="width: 55px;">
+                <span style="color: var(--text-secondary);">hr</span>
+              </div>
+            </div>
+            <div class="config-row">
+              <label for="cfg-efficiency">Marine Efficiency</label>
+              <div style="display: flex; align-items: center; gap: 0.25rem;">
+                <input type="number" id="cfg-efficiency" class="number-input" value="75" min="10" max="100" style="width: 55px;">
+                <span style="color: var(--text-secondary);">%</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="config-group" style="font-size: 0.72rem; line-height: 1.45;">
+            <div class="config-group-title">Sizing Analysis Formulas</div>
+            <div style="margin-bottom: 0.5rem; color: var(--text-secondary);">
+              <strong>Daily consumption load:</strong><br>
+              \(DailyLoad = (Propulsion + System) \times 24\text{ Wh/day}\)
+            </div>
+            <div style="margin-bottom: 0.5rem; color: var(--text-secondary);">
+              <strong>Required Storage:</strong><br>
+              \(Capacity (Ah) = \frac{DailyLoad \times Autonomy}{DoD \% \times Voltage}\)
+            </div>
+            <div style="color: var(--text-secondary);">
+              <strong>Required Solar array:</strong><br>
+              \(Solar (Watts) = \frac{DailyLoad}{PeakSun \times Efficiency \%}\)
+            </div>
+          </div>
+        </div>
+        
+        <!-- Gap alert box remains at bottom of panel, always visible -->
+        <div class="spec-alert warning" id="configurator-alert-box" style="margin-top: auto;">
+          Analyzing configuration...
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
