@@ -161,3 +161,49 @@ This section serves as the fabrication blueprint and assembly manual for constru
 1. **Mast Structure**: Construct a 1.2m vertical mast using a 25mm diameter lightweight carbon-fiber tube. Insert the mast base into a reinforced aluminum deck socket bolted directly to the forward deck crossbeam.
 2. **Head Rigging**: Mount the RTK-GPS receiver antenna, the 915 MHz LoRa whip antenna, and optical camera housing to the top mast bracket. Run the shielded signal cables down the interior of the hollow carbon fiber mast tube, emerging through a waterproof cable entry gland at the base.
 3. **Grounding & Shielding**: Ground all cable shields and the aluminum frame to a common negative bus bar connected to a sacrificial zinc anode mounted below the water line on the transom to prevent galvanic corrosion.
+
+---
+
+## 7. 800W Sizing Options & Construction Plans
+
+To upgrade the vessel to a larger **800W solar array** under budget constraints and in a minimal construction space, we present two design configurations. Both leverage off-the-shelf hardware, modular assembly, and require no advanced fabrication facilities.
+
+### 7.1 Option A: Proportional 2.53m Scale Catamaran
+
+This design scales the baseline catamaran up by 15% to increase deck area while maintaining identical hydrodynamics.
+
+![Option A: 2.53m Catamaran Blueprint](./asv_option_a_blueprint.png)
+
+#### Technical Specifications & Sizing
+* **Pontoon Hulls**: Dual 8-inch (200mm) Schedule 40 PVC pipes, 2.53m length, sealed with domed end-caps.
+* **Beam Width**: 1.6m (total overall width).
+* **Frame**: 2020 (20mm x 20mm) T-slot anodized aluminum extrusions.
+* **Solar Deck**: $4.1\text{ m}^2$ rectangular flat deck made of 4mm Coroplast, supporting eight 100W flexible solar panels (4s2p wiring).
+* **Waterproofing**: Dual snap-lock heavy-duty dry boxes with compression glands for cable pass-throughs.
+
+#### Space-Saving Construction Steps
+1. **Modular Tube Hulls**: Cut two PVC pipes to 2.53m. Use PVC primer and cement to glue domed end-caps. No molding or sanding is required.
+2. **Bolt-On Crossbeams**: Strap the hulls to four 2020 aluminum crossbeams using galvanized U-bolts cushioned with rubber strips.
+3. **Coroplast Deck Mount**: Rivet the 4mm Coroplast deck sheets directly to the 2020 extrusion slots.
+4. **Disassembly**: The frame can be unbolted from the hulls, breaking the model down into three flat components for easy transport and apartment storage.
+
+---
+
+### 7.2 Option B: Aspect-Optimized 3.40m Centerline Catamaran
+
+This design utilizes a long, narrow deck specifically optimized for standard-dimension flexible panels placed end-to-end along the centerline, reducing overall beam width and drag.
+
+![Option B: 3.40m Centerline Catamaran Blueprint](./asv_option_b_blueprint.png)
+
+#### Technical Specifications & Sizing
+* **Pontoon Hulls**: Dual 6-inch (150mm) Schedule 40 PVC pipes, 3.40m length, sealed with aerodynamic dome end-caps.
+* **Beam Width**: 1.2m (sleeker aspect ratio to reduce wave-making resistance).
+* **Frame**: 2020 (20mm x 20mm) T-slot anodized aluminum.
+* **Solar Deck**: Long centerline corridor deck ($3.0\text{m} \times 1.4\text{m}$) holding four 200W flexible panels in an end-to-end centerline grid.
+* **Waterproofing**: Compact locking food-grade polycarbonate containers positioned aft of the panels.
+
+#### Space-Saving Construction Steps
+1. **Slim Hull Preparation**: Cut two 6-inch PVC pipes to 3.4m. Cement end-caps.
+2. **Narrow Cross-Bracing**: Assemble a narrow structural ladder frame using 2020 aluminum extrusions. Bridge spacing is kept at 1.2m total width.
+3. **Inline Panel Layout**: Lay the four 200W flexible panels in series along the centerline of the ladder frame, securing them with marine zip-ties or snaps through the panel eyelets.
+4. **Electronics Integration**: Place the STM32 avionics and Raspberry Pi 5 in a single large snap-lock enclosure mounted at the stern to keep the centerline clear for solar exposure.
