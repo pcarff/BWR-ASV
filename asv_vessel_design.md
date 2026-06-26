@@ -138,6 +138,7 @@ This section serves as the fabrication blueprint and assembly manual for constru
 1. **Pontoon Preparation**: Select dual rotomolded UV-resistant high-density polyethylene (HDPE) pontoons (length: 2.2m, beam diameter: 0.25m). Mold integrated threaded brass inserts on the upper deck of each pontoon to serve as crossbeam anchor points.
 2. **Crossbeam Assembly**: Cut four lengths of 40mm x 40mm T-slot anodized aluminum structural extrusions (80/20 profile). Bolt these crossbeams transversely across the pontoons using M8 marine-grade 316 stainless steel bolts with nylon-insert lock nuts.
 3. **Bridge Deck Installation**: Secure a 3.5mm thick carbon-fiber composite sheet across the middle three crossbeams. Apply marine silicone sealant (e.g., 3M Marine Adhesive Sealant 4000UV) along the extrusion channels before fastening to eliminate vibration and squeaking.
+4. **Extrusion-to-PVC Mounting Brackets**: For PVC pipe hull options (Options A, B, and C), utilize the 3D-printable parametric mounting brackets designed in [pvc_extrusion_bracket.scad](file:///workspaces/BWR_ASV/pvc_extrusion_bracket.scad). These brackets provide a circular cradle for the PVC pipe, routing slots for metal band hose clamps, and a recessed top slot for bolting down the 2020 aluminum extrusion frame.
 
 ### 6.2 Watertight Power Vault (Central Box)
 1. **Box Selection**: Utilize an IP67-rated polycarbonate enclosure (minimum size: 400mm x 300mm x 180mm).
@@ -207,3 +208,26 @@ This design utilizes a long, narrow deck specifically optimized for standard-dim
 2. **Narrow Cross-Bracing**: Assemble a narrow structural ladder frame using 2020 aluminum extrusions. Bridge spacing is kept at 1.2m total width.
 3. **Inline Panel Layout**: Lay the four 200W flexible panels in series along the centerline of the ladder frame, securing them with marine zip-ties or snaps through the panel eyelets.
 4. **Electronics Integration**: Place the STM32 avionics and Raspberry Pi 5 in a single large snap-lock enclosure mounted at the stern to keep the centerline clear for solar exposure.
+
+---
+
+### 7.3 Option C: 1.0m Prototype/Development Model (Scale & Comms Testing)
+
+This design is a scaled-down development platform of Option A, optimized for testing electronics, controls, and communications locally in calm water (lakes/ponds). It is not intended for open-water or multi-day excursions.
+
+![Option C: 1.0m Prototype Blueprint](./asv_option_c_blueprint.png)
+
+#### Technical Specifications & Sizing
+* **Pontoon Hulls**: Dual 4-inch (100mm) Schedule 40 PVC pipes, 1.0m length, sealed with PVC end-caps.
+* **Beam Width**: 0.6m (total overall width).
+* **Frame**: 2020 (20mm x 20mm) T-slot anodized aluminum.
+* **Solar Array**: Single 100W flexible solar panel (approx. 1000mm x 520mm) or dual 50W panels.
+* **Power System**: 24V or 12V LiFePO4 battery bank (e.g., 24V 10Ah or 12V 20Ah, approx. 240 Wh).
+* **Propulsion**: Dual BlueRobotics T200 thrusters run at lower voltage (12V-24V) drawing 15W-20W cruising thrust.
+* **Electronics**: Raspberry Pi 5 + STM32 MCU mounted inside a single watertight IP67 snap-lock container.
+
+#### Space-Saving Construction Steps
+1. **Compact Tube Hulls**: Cut two 4-inch PVC pipes to 1.0m. Cement end-caps.
+2. **Simplified Framing**: Assemble a simple rectangular frame using 2020 aluminum extrusions ($1.0\text{m} \times 0.6\text{m}$).
+3. **Single Panel Mounting**: Mount the single 100W flexible solar panel directly across the center deck extrusions.
+4. **Bench-Friendly Sizing**: This prototype fits easily on a standard workbench/kitchen table and can be transported fully assembled in the trunk of a car.
