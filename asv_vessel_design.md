@@ -126,7 +126,9 @@ The telemetry system utilizes a low-power **MeshCore LoRa transceiver** operatin
 * **Link Budget**:
   - Max direct range: 45 nautical miles over flat ocean water.
   - Frequency: 915 MHz Spread Spectrum (LoRa).
-  - Sleep Cycle: The Companion Node wakes up every 10 seconds to check for incoming discrete command packets (`NAV:WP`, `NAV:HOLD`, `NAV:KILL`) and broadcasts a telemetry payload (`TEL:DIAG`) only upon change in ship state or every 5 minutes.
+* **Protocol & Commands Specification**:
+  - Detailed serial protocol, XOR checksum calculations, and private AES-256 channel configuration commands are documented in the dedicated [Telemetry & Communications Protocol](file:///workspaces/BWR_ASV/docs/comms_protocol.md).
+  - Sleep Cycle: The Companion Node wakes up every 10 seconds to check for incoming discrete commands and broadcasts diagnostics upon state change or every 5 minutes.
 
 ---
 
@@ -184,7 +186,8 @@ This design scales the baseline catamaran up by 15% to increase deck area while 
 * **Frame**: 2020 (20mm x 20mm) T-slot anodized aluminum extrusions.
 * **Solar Deck**: $4.1\text{ m}^2$ rectangular flat deck made of 4mm Coroplast, supporting eight 100W flexible solar panels (4s2p wiring).
 * **Waterproofing**: Dual snap-lock heavy-duty dry boxes with compression glands for cable pass-throughs.
-* **3D Assembly Model**: A parametric 3D CAD model is available at [asv_option_a_model.scad](file:///workspaces/BWR_ASV/asv_option_a_model.scad) for structural visualization.
+* **3D Assembly Model (Extruded Hulls)**: A parametric 3D CAD model is available at [asv_option_a_model.scad](file:///workspaces/BWR_ASV/asv_option_a_model.scad) for structural visualization of the extruded PVC hull variant.
+* **3D Assembly Model (3D-Printed Hulls)**: A modular 3D-printed assembly model is available at [asv_option_a_printed_model.scad](file:///workspaces/BWR_ASV/asv_option_a_printed_model.scad), showcasing printed segments, bulkheads, joint collars, and internal tension spars.
 
 #### Space-Saving Construction Steps
 1. **Modular Tube Hulls**: Cut two PVC pipes to 2.53m. Use PVC primer and cement to glue domed end-caps. No molding or sanding is required.
