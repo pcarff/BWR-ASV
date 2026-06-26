@@ -139,6 +139,9 @@ This section serves as the fabrication blueprint and assembly manual for constru
 2. **Crossbeam Assembly**: Cut four lengths of 40mm x 40mm T-slot anodized aluminum structural extrusions (80/20 profile). Bolt these crossbeams transversely across the pontoons using M8 marine-grade 316 stainless steel bolts with nylon-insert lock nuts.
 3. **Bridge Deck Installation**: Secure a 3.5mm thick carbon-fiber composite sheet across the middle three crossbeams. Apply marine silicone sealant (e.g., 3M Marine Adhesive Sealant 4000UV) along the extrusion channels before fastening to eliminate vibration and squeaking.
 4. **Extrusion-to-PVC Mounting Brackets**: For PVC pipe hull options (Options A, B, and C), utilize the 3D-printable parametric mounting brackets designed in [pvc_extrusion_bracket.scad](file:///workspaces/BWR_ASV/pvc_extrusion_bracket.scad). These brackets provide a circular cradle for the PVC pipe, routing slots for metal band hose clamps, and a recessed top slot for bolting down the 2020 aluminum extrusion frame.
+   - **Rubber Friction Pad**: Wrap a 1.5mm thick neoprene or EPDM rubber strip around the PVC hull at each bracket junction. The bracket's cradle radius includes a parametric clearance (`rubber_thickness = 1.5`) to accommodate this pad. This creates a high-friction, non-slip fit, dampens wave vibration, and prevents the brackets and metal clamps from scratching or slicing the PVC hulls.
+   - **Hose Clamp Tensioning**: The stainless steel metal bands are threaded through the integrated wrap-around tunnel channels inside the bracket bodies, wrapped over the rubber strip, and tightened via worm-gear tension screws. Clamping force is distributed evenly around the hulls, pulling the cradle tight against the top surface and locking the bracket from sliding or rotating without drilling into the watertight pontoon chambers.
+
 
 ### 6.2 Watertight Power Vault (Central Box)
 1. **Box Selection**: Utilize an IP67-rated polycarbonate enclosure (minimum size: 400mm x 300mm x 180mm).
@@ -181,6 +184,7 @@ This design scales the baseline catamaran up by 15% to increase deck area while 
 * **Frame**: 2020 (20mm x 20mm) T-slot anodized aluminum extrusions.
 * **Solar Deck**: $4.1\text{ m}^2$ rectangular flat deck made of 4mm Coroplast, supporting eight 100W flexible solar panels (4s2p wiring).
 * **Waterproofing**: Dual snap-lock heavy-duty dry boxes with compression glands for cable pass-throughs.
+* **3D Assembly Model**: A parametric 3D CAD model is available at [asv_option_a_model.scad](file:///workspaces/BWR_ASV/asv_option_a_model.scad) for structural visualization.
 
 #### Space-Saving Construction Steps
 1. **Modular Tube Hulls**: Cut two PVC pipes to 2.53m. Use PVC primer and cement to glue domed end-caps. No molding or sanding is required.

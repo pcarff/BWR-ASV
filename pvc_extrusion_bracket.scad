@@ -49,9 +49,12 @@ clamp_width = 14.5;
 // Hose clamp slot thickness (mm)
 clamp_thickness = 3.0;
 
+// Thickness of rubber friction/dampening strip between bracket and PVC (mm)
+rubber_thickness = 1.5; 
+
 // --- Calculated Geometry Constants ---
 pipe_center_z = 0;
-pipe_radius = pvc_od / 2;
+pipe_radius = pvc_od / 2 + rubber_thickness;
 
 block_top_z = pipe_radius + top_thickness;
 block_bottom_z = pipe_radius - cradle_depth;
