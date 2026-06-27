@@ -238,3 +238,46 @@ This design is a scaled-down development platform of Option A, optimized for tes
 2. **Simplified Framing**: Assemble a simple rectangular frame using 2020 aluminum extrusions ($1.0\text{m} \times 0.6\text{m}$).
 3. **Single Panel Mounting**: Mount the single 100W flexible solar panel directly across the center deck extrusions.
 4. **Bench-Friendly Sizing**: This prototype fits easily on a standard workbench/kitchen table and can be transported fully assembled in the trunk of a car.
+
+---
+
+### 7.4 Option D: Keel-Stabilized Narrow Catamaran (SeaCharger Hybrid)
+
+This design adapts SeaCharger's weight-saving, ballast-keel philosophy to a catamaran platform. It is engineered specifically for ultra-low cost, minimal workshop space, and simple hand tools.
+
+#### Technical Specifications & Sizing
+* **Pontoon Hulls**: Dual 4-inch (100mm) or 6-inch (150mm) PVC pipes, 2.53m length, acting as outer stabilizing pontoons.
+* **Central Keel Tube**: A single 4-inch or 6-inch PVC pipe suspended below the centerline, housing the heavy 48V 115Ah battery bank ($35\text{ kg}$).
+* **Beam Width**: $0.8\text{m}\text{–}1.0\text{m}$ (highly compact footprint).
+* **Frame**: 2020 (20mm x 20mm) T-slot anodized aluminum extrusions connecting the three parallel tubes.
+* **Solar Deck**: $1.0\text{m} \times 2.1\text{m}$ lightweight Coroplast deck supporting eight 100W flexible solar panels (cantilevered to overhang the hulls slightly).
+* **Propulsion & Steering**: Dual thrusters on outer hulls for differential steering, or a single centerline thruster at the stern of the keel tube with a mechanical rudder.
+* **Full Design Details**: A complete integrated comparison and design trade-off study is available in the [Systems Engineering Assessment & Recommendations](file:///workspaces/BWR_ASV/docs/vessel_assessment_recommendations.md).
+
+#### Space-Saving Construction Steps
+1. **Triple-Tube Preparation**: Cut three PVC pipes (two outer pontoons, one central keel) to 2.53m. Glue domed end-caps.
+2. **Suspended Keel Assembly**: Bolt the central keel tube slightly below the level of the outer pontoons using custom 2020 bracket extensions to lower the Center of Gravity.
+3. **Internal Battery Fitting**: Slide the LiFePO4 cells into the central keel tube, ensuring they are tightly packed with foam inserts to prevent shifting.
+4. **Bench-Friendly Sizing**: Due to the narrow $1.0\text{m}$ beam, this entire catamaran can be assembled on a single workbench and transported fully built on a car roof rack.
+
+---
+
+### 7.5 Option E: Keel-Bulb Stabilized Catamaran (SWATH Hybrid)
+
+This configuration features two touching outboard pontoons at the waterline and a vertical keel fin slung centerline, terminating in a submerged keel bulb that houses the heavy battery pack and propulsion thruster.
+
+#### Technical Specifications & Sizing
+* **Outboard Pontoons**: Dual 6-inch ($168.3\text{mm}$ OD) SDR-35 PVC pipes, $2.53\text{m}$ length, mounted touching along the centerline (total width: $336.6\text{mm}$).
+* **3D-Printed Bow Cap**: A custom dual-nosed aerodynamic bow piece printed in ASA to merge both pontoon pipes at the front.
+* **Vertical Keel Fin**: Single 3-inch ($88.9\text{mm}$ OD) PVC pipe (wiring conduit) with an aerodynamic printed ASA hydrofoil shroud, extending 400mm down.
+* **Keel Bulb**: A $140\text{mm}$ diameter, $900\text{mm}$ long PVC capsule slung centerline at $z=-450\text{mm}$, with a 3D-printed nose cone. Houses the $35\text{ kg}$ battery pack.
+* **Beam Width**: $1.0\text{m}$ (extrusion frame) / $1.4\text{m}$ (solar deck).
+* **Propulsion & Steering**: Single centerline thruster and Delrin mechanical rudder mounted at the stern of the central keel bulb.
+* **Full Design Details**: A complete integrated comparison and design trade-off study is available in the [Systems Engineering Assessment & Recommendations](file:///workspaces/BWR_ASV/docs/vessel_assessment_recommendations.md).
+
+#### Construction Steps
+1. **Double Hull Prep**: Lay two 6-inch PVC pipes touching, seal their sterns with PVC end-caps, and glue the custom 3D-printed dual-nosed ASA cap to their bows.
+2. **Keel Fin & Root Installation**: Install the 3D-printed keel root collar between the two pontoons and insert the 3-inch vertical keel fin.
+3. **Keel Bulb Assembly**: Stuff the batteries inside the 140mm PVC keel bulb, route wires up the keel fin, and cement the bulb and its 3D-printed nose cone to the bottom of the fin.
+4. **Thruster & Rudder Setup**: Bolt the thruster and mount the servo/rudder to the stern of the keel bulb before final sealing.
+5. **Frame & Solar Deck**: Secure the 2020 extrusion frame to the top of the outer hulls, screw on the overhanging Coroplast deck, and mount the solar panels.

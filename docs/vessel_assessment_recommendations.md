@@ -93,13 +93,69 @@ To integrate the lessons from SeaCharger, SunChallenger II, and our structural e
 
 ---
 
-## 5. Comparison Matrix
+## 5. Option D: Keel-Stabilized Narrow Catamaran (SeaCharger Hybrid)
 
-| Design Parameter | Baseline BWR (2.2m) | Option A (Extruded PVC) | Option A (3D-Printed ASA) | BWR Integrated Recommendation |
-| :--- | :--- | :--- | :--- | :--- |
-| **Hull Material** | HDPE Pontoons | 8" Sch 40 PVC | 8" Modular ASA | **8" SDR-35 Sewer PVC** |
-| **Total Hull Mass**| $60\text{ kg}$ | $63.3\text{ kg}$ | $10.1\text{ kg}$ | **$19.2\text{ kg}$** |
-| **Est. Draft** | $65\%$ | $77\%$ | $50\%$ | **$55\%$** |
-| **Solar Array** | $600\text{W}$ | $800\text{W}$ (Single MPPT) | $800\text{W}$ (Single MPPT) | **$800\text{W}$ (Dual Redundant MPPT)** |
-| **Steering** | Differential | Differential | Differential | **Differential (Ceramic/Potted)** |
-| **Telemetry** | LoRa Only | LoRa Only | LoRa Only | **Hybrid (LoRa Mesh + Iridium Satellite)** |
+This design adapts SeaCharger's weight-saving, ballast-keel philosophy to a catamaran platform. It is engineered specifically for **ultra-low cost, minimal workshop space, and simple hand tools**.
+
+### 5.1 Physical Layout & Concept
+*   **Triple-Tube Configuration**: Rather than two large hulls, this design uses **two narrow outer pontoons** (e.g., 4" or 6" PVC pipes) for lateral stability, and **one central keel tube** (4" or 6" PVC pipe) suspended below the waterline.
+*   **Ballast Keel Battery Vault**: The heavy $48\text{V } 115\text{Ah}$ battery bank ($35\text{ kg}$) is housed entirely inside the bottom of the central keel tube.
+*   **Narrow Beam**: The overall beam width is compressed to **$0.8\text{m}\text{–}1.0\text{m}$** (compared to Option A's $1.6\text{m}$).
+*   **Solar Overhang**: The $800\text{W}$ solar array is mounted on a wide, lightweight Coroplast deck that sits on cantilevered 2020 extrusions, overhanging the narrow hulls by $30\text{cm}$ on each side.
+
+### 5.2 Apartment & Bench Build Advantages
+*   **Ultra-Compact Footprint**: A $1.0\text{m}$ beam fits easily on a single standard workbench or kitchen table.
+*   **Ease of Transport**: Unlike a $1.6\text{m}$ wide catamaran which requires a trailer or disassembly, a $1.0\text{m}$ wide vessel can be loaded fully assembled onto standard car roof racks or in the back of an SUV.
+*   **Lower Material Cost**: Standard 4" and 6" PVC sewer pipes are widely available at local home centers for a fraction of the cost of 8" Schedule 40/SDR-35 industrial pipes.
+
+### 5.3 Technical & Mechanical Trade-offs
+*   **Self-Righting Capability**: Standard catamarans are highly stable but suffer from "catastrophic stability limit"—if they flip, they remain inverted. By placing $35\text{ kg}$ of battery ballast in the submerged central keel tube, the Center of Gravity ($G$) sits far below the Center of Buoyancy ($B$). If a storm rolls the ASV, the weighted keel swings down and **automatically self-rights the vessel**, combining the flat deck area of a catamaran with the survival physics of a monohull.
+*   **Buoyancy Contribution**: The central keel tube is watertight and submerged, meaning its displaced volume contributes directly to buoyancy. This allows the outer pontoons to be smaller and lighter (e.g., 4" PVC instead of 8" PVC) because the central tube carries the battery load directly.
+*   **Propulsion & Steering Adaptations**:
+    *   *Differential Steering Constraint*: The narrow $0.8\text{m}$ beam reduces the differential steering torque vector. To navigate effectively against ocean waves, the autopilot must run the thrusters with large thrust differences, wasting energy.
+    *   *Single-Motor Option*: To maximize efficiency, we can mount a **single centerline thruster** at the stern of the central keel tube, paired with a small mechanical rudder. While this introduces a rudder failure point (the issue that disabled SeaCharger), it increases battery endurance by up to $30\%$.
+    *   *Dual-Motor Option*: Keep the twin thrusters on the outer pontoons for redundancy and differential steering. Although the torque arm is reduced, it remains sufficient for coastal navigation.
+
+---
+
+## 6. Option E: Keel-Bulb Stabilized Catamaran (SWATH Hybrid)
+
+This design represents a highly optimized, low-cost SWATH (Small Waterplane Area Twin Hull) hybrid. It is engineered to minimize aerodynamic/hydrodynamic drag while maximizing self-righting safety, utilizing **3D-printed nose caps and keel connection parts** to interface off-the-shelf PVC pipes.
+
+### 6.1 Physical Layout & Concept
+*   **Touching Outboard Hulls**: Two parallel 6" PVC pontoons ($168.3\text{mm}$ OD each) are joined side-by-side along the centerline, forming a single wide $336.6\text{mm}$ hull at the waterline.
+*   **Aerodynamic 3D-Printed Bow Cap**: A custom ASA-printed dual-nosed nose cap merges the front of both outer tubes, creating a sleek hydrodynamic entry that slices through waves and prevents seaweed accumulation.
+*   **Vertical Keel Fin Strut**: A single vertical 3" PVC pipe centerline, wrapped in an aerodynamic 3D-printed hydrofoil shroud, extends 400mm downwards. This hollow pipe acts as a structural keel fin and a watertight conduit routing wiring up to the deck.
+*   **Keel Bulb Battery Vault**: A $140\text{mm}$ diameter, $900\text{mm}$ long PVC capsule sits at $z = -450\text{mm}$ (below outer hulls), featuring an aerodynamic 3D-printed nose cone. It houses the heavy $35\text{ kg}$ battery pack.
+*   **Keel-Integrated Drive**: The single centerline thruster and Delrin mechanical steering rudder are bolted directly to the stern transom of the central keel bulb.
+
+### 6.2 Buoyancy & Draft (SWATH Wave-Piercing Effect)
+*   **Buoyancy Capacity**:
+    *   Outboard Pontoons ($2 \times 56.1\text{ Liters}$): $112.2\text{ Liters}$
+    *   Keel Bulb ($13.8\text{ Liters}$): $13.8\text{ Liters}$
+    *   Total Capacity: $126.0\text{ Liters}$
+*   **Draft**: Under the $96.5\text{ kg}$ total wet weight, the draft is **$76.5\%$ of the outer pontoons**.
+    *   *Hydrodynamic Effect*: The outer pontoons float deep in the water. Because they are narrow and touching, they act as a single wave-piercing bow. The small waterplane area reduces wave-making resistance, and the vessel remains incredibly stable in choppy sea states, piercing straight through waves rather than tossing over them.
+
+### 6.3 Self-Righting Moment Physics
+*   **Extremely Deep Center of Gravity ($G$)**: By suspending the $35\text{ kg}$ battery bank and motor at $z = -450\text{mm}$ inside the keel bulb, the Center of Gravity ($G$) is pulled deep below the Center of Buoyancy ($B$) at $z \approx -80\text{mm}$.
+*   **Auto-Recovery**: If capsized $180^\circ$ by a breaking wave, the keel bulb acts as a massive pendulum, creating a self-righting torque that immediately rolls the vessel back upright. This provides sailboat-like offshore survivability on a flat solar catamaran platform.
+
+---
+
+## 7. Comparison Matrix
+
+| Design Parameter | Option A (Extruded PVC) | Option A (3D-Printed ASA) | Option D (Keel-Stabilized) | Option E (Keel-Bulb SWATH) | BWR Integrated Recommendation |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **Hull Configuration** | Catamaran (Dual Hulls) | Catamaran (Dual Hulls) | Catamaran (Triple-Tube) | **SWATH Hybrid (Touching + Bulb)** | **Catamaran (Dual Hulls)** |
+| **Hull Material** | 8" Sch 40 PVC | 8" Modular ASA | 4" or 6" PVC (3 tubes) | **6" PVC (touching) + 140mm PVC Bulb** | **8" SDR-35 Sewer PVC** |
+| **Overall Beam** | $1.6\text{ m}$ | $1.6\text{ m}$ | $0.8\text{ m}\text{–}1.0\text{ m}$ | **$1.0\text{ m}$ (Solar Deck $1.4\text{ m}$)** | **$1.6\text{ m}$ (Option A)** / **$1.2\text{ m}$ (Option B)** |
+| **Total Hull Mass** | $63.3\text{ kg}$ | $10.1\text{ kg}$ | $\approx 14.5\text{ kg}$ | **$\approx 11.5\text{ kg}$** | **$19.2\text{ kg}$** |
+| **Stability Mode** | Wide Beam Stability | Wide Beam Stability | Weighted Ballast Keel | **Submerged Keel Bulb Ballast** | Wide Beam Stability |
+| **Self-Righting** | No | No | Yes (Self-Righting) | **Yes (Self-Righting - High Arm)** | No |
+| **Steering** | Differential | Differential | Single Motor + Rudder | **Keel-Integrated Thruster + Rudder**| **Differential (Ceramic/Potted)** |
+| **Build Location** | Garage / Workshop | Large 3D Print Lab | Apartment / Workbench | **Apartment / Workbench** | Garage / Workshop |
+| **Transport** | Trailer / Flatbed | Trailer / Flatbed | Car Roof Rack / SUV | **Car Roof Rack / SUV** | Trailer / Roof Rack |
+| **Material Cost** | High ($\approx \$200$) | High ($\approx \$330$) | Low ($\approx \$80\text{–}\$120$) | **Low-Medium ($\approx \$100\text{–}\$140$)**| Low-Medium ($\approx \$100$) |
+
+
