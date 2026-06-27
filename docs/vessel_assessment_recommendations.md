@@ -118,44 +118,47 @@ This design adapts SeaCharger's weight-saving, ballast-keel philosophy to a cata
 
 ---
 
-## 6. Option E: Keel-Bulb Stabilized Catamaran (SWATH Hybrid)
+## 6. Option E: Keel-Bulb Stabilized Catamaran (SWATH Hybrid) - Critical Assessment
 
-This design represents a highly optimized, low-cost SWATH (Small Waterplane Area Twin Hull) hybrid. It is engineered to minimize aerodynamic/hydrodynamic drag while maximizing self-righting safety, utilizing **3D-printed nose caps and keel connection parts** to interface off-the-shelf PVC pipes.
+This design represents a SWATH (Small Waterplane Area Twin Hull) hybrid, combining two touching outboard 6" PVC pontoons, a vertical 3" PVC keel fin, and a submerged central 140mm PVC capsule acting as a battery vault, with a single centerline motor and rudder.
 
-### 6.1 Physical Layout & Concept
-*   **Touching Outboard Hulls**: Two parallel 6" PVC pontoons ($168.3\text{mm}$ OD each) are joined side-by-side along the centerline, forming a single wide $336.6\text{mm}$ hull at the waterline.
-*   **Aerodynamic 3D-Printed Bow Cap**: A custom ASA-printed dual-nosed nose cap merges the front of both outer tubes, creating a sleek hydrodynamic entry that slices through waves and prevents seaweed accumulation.
-*   **Vertical Keel Fin Strut**: A single vertical 3" PVC pipe centerline, wrapped in an aerodynamic 3D-printed hydrofoil shroud, extends 400mm downwards. This hollow pipe acts as a structural keel fin and a watertight conduit routing wiring up to the deck.
-*   **Keel Bulb Battery Vault**: A $140\text{mm}$ diameter, $900\text{mm}$ long PVC capsule sits at $z = -450\text{mm}$ (below outer hulls), featuring an aerodynamic 3D-printed nose cone. It houses the heavy $35\text{ kg}$ battery pack.
-*   **Keel-Integrated Drive**: The single centerline thruster and Delrin mechanical steering rudder are bolted directly to the stern transom of the central keel bulb.
-
-### 6.2 Buoyancy & Draft (SWATH Wave-Piercing Effect)
-*   **Buoyancy Capacity**:
-    *   Outboard Pontoons ($2 \times 56.1\text{ Liters}$): $112.2\text{ Liters}$
-    *   Keel Bulb ($13.8\text{ Liters}$): $13.8\text{ Liters}$
-    *   Total Capacity: $126.0\text{ Liters}$
-*   **Draft**: Under the $96.5\text{ kg}$ total wet weight, the draft is **$76.5\%$ of the outer pontoons**.
-    *   *Hydrodynamic Effect*: The outer pontoons float deep in the water. Because they are narrow and touching, they act as a single wave-piercing bow. The small waterplane area reduces wave-making resistance, and the vessel remains incredibly stable in choppy sea states, piercing straight through waves rather than tossing over them.
-
-### 6.3 Self-Righting Moment Physics
-*   **Extremely Deep Center of Gravity ($G$)**: By suspending the $35\text{ kg}$ battery bank and motor at $z = -450\text{mm}$ inside the keel bulb, the Center of Gravity ($G$) is pulled deep below the Center of Buoyancy ($B$) at $z \approx -80\text{mm}$.
-*   **Auto-Recovery**: If capsized $180^\circ$ by a breaking wave, the keel bulb acts as a massive pendulum, creating a self-righting torque that immediately rolls the vessel back upright. This provides sailboat-like offshore survivability on a flat solar catamaran platform.
+### 6.1 Critical Vulnerability Review
+While Option E provides apartment-scale transportability and high theoretical righting moments, it suffers from several severe, potentially mission-ending vulnerabilities:
+1. **Structural Keel Fatigue**: The heavy $35\text{ kg}$ battery pack sits at the end of a $400\text{mm}$ leverage arm (the 3" PVC pipe). Open-ocean waves rolling the hulls will create massive bending moments on the 3D-printed ASA root collar and joints. Any collision with coastal sandbars or debris will snap this connection, sinking the batteries.
+2. **Submerged Battery Vault Leakage**: Housing the $48\text{V } 115\text{Ah}$ lithium battery bank under continuous hydrostatic pressure ($z = -450\text{mm}$) is highly dangerous. A minor leak in the 3D-printed caps or PVC cement will flood the vault with saltwater, causing a short-circuit, rapid corrosion, or thermal runaway.
+3. **Single Point of Steering & Propulsion Failure**: Using a single thruster and mechanical rudder is a high-risk failure profile. If the rudder servo jams, or if the rudder's rubber sealing boot fails under hydrostatic pressure, the vessel will be disabled.
+4. **Seaweed "Rake" effect**: The vertical keel fin and bulb will act as a seaweed scoop, dragging sargassum and marine lines, creating immense drag and wrapping the propeller.
+5. **High Waterplane Draft**: Because the outer hulls are touching and float at a $73\text{–}76\%$ draft, the solar deck sits extremely close to the waterline, exposing panels to constant wave washing, drag, and shading.
 
 ---
 
-## 7. Comparison Matrix
+## 7. Option F: Hydro-Stabilized Ocean Catamaran (Ballast-Keel Hybrid)
 
-| Design Parameter | Option A (Extruded PVC) | Option A (3D-Printed ASA) | Option D (Keel-Stabilized) | Option E (Keel-Bulb SWATH) | BWR Integrated Recommendation |
+Option F is a corrected configuration designed specifically to eliminate the failure points of Option E while preserving its compact transport benefits and self-righting physics. The detailed specification is located at [asv_option_f_spec.md](file:///workspaces/BWR_ASV/docs/asv_option_f_spec.md).
+
+### 7.1 Physical Layout & Concept
+* **Separated Outboard Pontoons**: Two 6-inch SDR-35 PVC pontoons ($2.53\text{m}$ length) spaced **$800\text{mm}$ center-to-center** (overall beam $1.0\text{m}$). This true catamaran shape floats at a safe $50\%$ draft, keeping the overhanging $1.4\text{m}$ solar deck dry.
+* **Swept-Back Metal Foil Spar**: The structural keel fin is replaced by a continuous, high-strength $8\text{mm}$ aluminum foil spar, swept back at a **$45^\circ$ angle** to naturally shed seaweed and lines.
+* **Solid Lead Ballast Bulb**: Sinking a compact **$15\text{ kg}$ solid lead bulb** (encapsulated in epoxy-fiberglass) to $z = -450\text{mm}$. The bulb contains **no electrical parts**, completely eliminating leak risks.
+* **Deck-Mounted Power Vault**: The $35\text{ kg}$ LiFePO4 battery bank and all electronics are moved to dual IP67 deck-mounted enclosures, ensuring serviceability and absolute protection from seawater flooding.
+* **Differential Propulsion**: Dual BlueRobotics T200 thrusters mounted at the stern of the outer hulls. Eliminates the mechanical rudder, servo, and boot. Provides full steering and thrust redundancy.
+
+---
+
+## 8. Comparison Matrix
+
+| Design Parameter | Option A (Extruded PVC) | Option D (Keel-Stabilized) | Option E (Keel-Bulb SWATH) | Option F (Hydro-Stabilized Cat) | BWR Integrated Recommendation |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **Hull Configuration** | Catamaran (Dual Hulls) | Catamaran (Dual Hulls) | Catamaran (Triple-Tube) | **SWATH Hybrid (Touching + Bulb)** | **Catamaran (Dual Hulls)** |
-| **Hull Material** | 8" Sch 40 PVC | 8" Modular ASA | 4" or 6" PVC (3 tubes) | **6" PVC (touching) + 140mm PVC Bulb** | **8" SDR-35 Sewer PVC** |
-| **Overall Beam** | $1.6\text{ m}$ | $1.6\text{ m}$ | $0.8\text{ m}\text{–}1.0\text{ m}$ | **$1.0\text{ m}$ (Solar Deck $1.4\text{ m}$)** | **$1.6\text{ m}$ (Option A)** / **$1.2\text{ m}$ (Option B)** |
-| **Total Hull Mass** | $63.3\text{ kg}$ | $10.1\text{ kg}$ | $\approx 14.5\text{ kg}$ | **$\approx 11.5\text{ kg}$** | **$19.2\text{ kg}$** |
-| **Stability Mode** | Wide Beam Stability | Wide Beam Stability | Weighted Ballast Keel | **Submerged Keel Bulb Ballast** | Wide Beam Stability |
-| **Self-Righting** | No | No | Yes (Self-Righting) | **Yes (Self-Righting - High Arm)** | No |
-| **Steering** | Differential | Differential | Single Motor + Rudder | **Keel-Integrated Thruster + Rudder**| **Differential (Ceramic/Potted)** |
-| **Build Location** | Garage / Workshop | Large 3D Print Lab | Apartment / Workbench | **Apartment / Workbench** | Garage / Workshop |
-| **Transport** | Trailer / Flatbed | Trailer / Flatbed | Car Roof Rack / SUV | **Car Roof Rack / SUV** | Trailer / Roof Rack |
-| **Material Cost** | High ($\approx \$200$) | High ($\approx \$330$) | Low ($\approx \$80\text{–}\$120$) | **Low-Medium ($\approx \$100\text{–}\$140$)**| Low-Medium ($\approx \$100$) |
+| **Hull Configuration** | Catamaran (Dual Hulls) | Catamaran (Triple-Tube) | SWATH Hybrid (Touching + Bulb) | **Catamaran (Separated + Bulb)** | **Catamaran (Dual Hulls)** |
+| **Hull Material** | 8" Sch 40 PVC | 4" or 6" PVC (3 tubes) | 6" PVC (touching) + 140mm Bulb | **6" SDR-35 PVC + 100mm Lead Bulb** | **8" SDR-35 Sewer PVC** |
+| **Overall Beam** | $1.6\text{ m}$ | $0.8\text{ m}\text{–}1.0\text{ m}$ | $1.0\text{ m}$ (Solar Deck $1.4\text{ m}$) | **$1.0\text{ m}$ (Solar Deck $1.4\text{ m}$)** | **$1.6\text{ m}$ (Option A)** / **$1.2\text{ m}$ (Option B)** |
+| **Total Hull Mass** | $63.3\text{ kg}$ | $\approx 14.5\text{ kg}$ | $\approx 11.5\text{ kg}$ | **$\approx 11.5\text{ kg}$ (plus 15kg lead)** | **$19.2\text{ kg}$** |
+| **Stability Mode** | Wide Beam Stability | Weighted Ballast Keel | Submerged Keel Bulb Ballast | **Swept-Keel Ballast + Wide Beam** | Wide Beam Stability |
+| **Self-Righting** | No | Yes (Self-Righting) | Yes (Self-Righting - High Arm) | **Yes (Self-Righting - Highly Safe)** | No |
+| **Steering** | Differential | Single Motor + Rudder | Keel Thruster + Rudder | **Differential Steering (Rudderless)**| **Differential (Ceramic/Potted)** |
+| **Build Location** | Garage / Workshop | Apartment / Workbench | Apartment / Workbench | **Apartment / Workbench** | Garage / Workshop |
+| **Transport** | Trailer / Flatbed | Car Roof Rack / SUV | Car Roof Rack / SUV | **Car Roof Rack / SUV** | Trailer / Roof Rack |
+| **Material Cost** | High ($\approx \$200$) | Low ($\approx \$80\text{–}\$120$) | Low-Medium ($\approx \$100\text{–}\$140$) | **Medium ($\approx \$160\text{–}\$200$)**| Low-Medium ($\approx \$100$) |
+
 
 
