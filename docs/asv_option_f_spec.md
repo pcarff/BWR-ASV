@@ -57,9 +57,17 @@ This document outlines the detailed mechanical, electrical, and telemetry specif
 
 ## 4. Telemetry & Communications
 
-*   **Primary Coastal Link**: MeshCore LoRa companion node operating at $915\text{ MHz}$, transmitting diagnostics (`TEL:DIAG`) to onshore repeaters up to $45\text{ NM}$ offshore.
-*   **Secondary Satellite Link**: RockBLOCK Iridium 9603 satellite transceiver mounted inside the deck vault, acting as a global fail-safe link if LoRa comms drop for $>30\text{ minutes}$.
-*   **Avionics Core**: Raspberry Pi Zero W v1.1 running a throttled low-power Linux kernel (consuming only $1.0\text{ W}$) paired with an STM32 MCU autopilot core, keeping the continuous system draw to only **$31.5\text{ W}$** (including propulsion at $30\text{W}$ cruising throttle).
+*   **Three-Tier Avionics Core**:
+    *   *High-Level Perception (Jetson Orin Nano)*: Runs Ubuntu, ROS2, and custom depth-clustering/YOLO models to process 3D depth feeds from the Intel RealSense D455 camera for COLREGs obstacle avoidance. Powered ON/OFF dynamically.
+    *   *System Companion (Raspberry Pi 4 Model B)*: Runs 24/7. Manages telemetry parsing, interfaces with cellular/satellite/LoRa modems, and duty-cycles power to the Jetson.
+    *   *Autopilot Core (Pixhawk 6X)*: Runs an RTOS (ArduPilot/PX4). Handles low-level differential thruster steering PID loops, navigation waypoints, and sensor fusion.
+    *   *Safety Supervisor (Arduino Nano)*: Minimal power watchdog board. Polls environmental sensors (leaks/humidity) and can power-cycle frozen compute boards.
+*   **Multi-Link Telemetry Suite**:
+    *   *Primary Coastal (MeshCore LoRa)*: Heltec V3 node operating at 915 MHz for ground station links up to 45 NM offshore.
+    *   *High-Speed Local (5G Modem)*: USB dongle connected to the Pi 4 for high-bandwidth remote operations near ports.
+    *   *Backup Satellite (RockBLOCK 9603 Iridium)*: Global satellite transceiver transmitting diagnostic heartbeats and emergency commands in deep ocean.
+*   **Dual GPS-for-Yaw**: Dual Holybro H-RTK F9P GPS units spaced longitudinally on the frame. Calculates GPS-based heading (carrier-phase differential) to eliminate electromagnetic compass interference.
+*   **System Power Consumption**: Draws $\approx 6.0\text{ W}$ in Transit Mode (Pi 4 + Pixhawk + Comms active) and peaks at $\approx 20.5\text{ W}$ in Avoidance Mode (Jetson + D455 fully active).
 
 ---
 
@@ -77,12 +85,17 @@ This document outlines the detailed mechanical, electrical, and telemetry specif
 | **Deck** | 4mm White Coroplast Sheet ($1.4\text{m} \times 2.0\text{m}$) | 1 | \$25 |
 | **Power** | 48V 115Ah LiFePO4 battery cells (cylindrical) | 16 | \$900 |
 | **Power** | IP67 Heavy-Duty Polycarbonate Enclosures (Deck Boxes) | 2 | \$70 |
-| **Power** | Victron SmartSolar MPPT 75/15 Charge Controller | 2 | \$160 |
+| **Power** | Victron SmartSolar MPPT Charge Controller | 2 | \$160 |
 | **Solar** | Renogy 100W Flexible Solar Panel | 8 | \$800 |
 | **Propulsion** | BlueRobotics T200 Brushless Thruster | 2 | \$500 |
-| **Electronics** | Raspberry Pi Zero W + STM32 Autopilot Board | 1 | \$80 |
-| **Telemetry** | MeshCore LoRa Transceiver + RockBLOCK Iridium 9603 | 1 | \$350 |
-| **Total Est. Cost**| | | **\$3,200** |
+| **Electronics** | Pixhawk 6X Flight Controller & Power Module | 1 | \$380 |
+| **Electronics** | Raspberry Pi 4 Model B (4GB) | 1 | \$55 |
+| **Electronics** | Jetson Orin Nano Developer Kit (8GB) | 1 | \$399 |
+| **Electronics** | Arduino Nano (3.3V) & MOSFET power board | 1 | \$25 |
+| **Electronics** | Intel RealSense D455 Depth Camera (with IP67 dome housing) | 1 | \$380 |
+| **Electronics** | Dual Holybro H-RTK F9P GPS Units | 2 | \$440 |
+| **Telemetry** | Heltec V3 LoRa + RockBLOCK 9603 + USB 5G Modem | 1 | \$420 |
+| **Total Est. Cost**| | | **\$4,870** |
 
 ---
 
@@ -92,9 +105,9 @@ This document outlines the detailed mechanical, electrical, and telemetry specif
 2.  **Keel Foil Installation**: Bolt the machined $8\text{mm}$ aluminum foil keel spar to the centerline of the aluminum frame using the 3D-printed root collar. Bolt the $15\text{ kg}$ lead ballast bulb to the bottom of the spar, securing it with locknuts and wrapping it in a thin layer of epoxy fiberglass to prevent galvanic corrosion.
 3.  **Frame & Bracket Assembly**: Assemble the 2020 aluminum crossbeams ($1.2\text{m}$ width) and long rails ($1.9\text{m}$ length). Clamp the frame to the PVC pontoons at $800\text{mm}$ spacing using the custom single-hull mounting brackets cushioned with rubber friction strips.
 4.  **Propulsion Mounting**: Bolt the dual BlueRobotics T200 thrusters to the stern transoms of the left and right pontoons. Route the potted power cables along the hulls inside nylon protective conduit and pass them through IP67 glands into the deck boxes.
-5.  **Deck and Enclosures Setup**: Mount the $4\text{mm}$ Coroplast deck sheet to the extrusion frame. Bolt the two IP67 deck boxes: the battery vault on the aft-left and the avionics box on the aft-right. Secure the LiFePO4 cells inside the battery vault using EPDM foam padding.
-6.  **Solar Array Installation**: Lay out the 8 flexible panels in a 4x2 grid on the deck. Secure them using marine-grade rivets or outdoor zip-ties through the panel eyelets. Route the cables through glands into the avionics box, connecting them to the dual Victron MPPT charge controllers.
-7.  **Mast Setup**: Bolt the $1.2\text{m}$ vertical mast socket to the front center of the aluminum frame. Insert the carbon fiber mast, route the RTK-GPS and LoRa antennas down the inside of the tube, and connect them to the Raspberry Pi Zero W / STM32 board.
+5.  **Deck and Enclosures Setup**: Mount the $4\text{mm}$ Coroplast deck sheet to the extrusion frame. Bolt the two IP67 deck boxes: the battery vault on the aft-left and the single control avionics box on the aft-right. Secure the LiFePO4 cells inside the battery vault using EPDM foam padding. Mount the Pi 4, Jetson Orin Nano, Pixhawk 6X, and Arduino watchdog inside the control box, ensuring the Jetson heatsink is thermally coupled to the external aluminum heat spreader.
+6.  **Solar Array Installation**: Lay out the 8 flexible panels in a 4x2 grid on the deck. Secure them using marine-grade rivets or outdoor zip-ties through the panel eyelets. Route the cables through glands into the avionics box, connecting them to the dual MPPT charge controllers.
+7.  **Mast and Camera Setup**: Bolt the $1.2\text{m}$ vertical mast socket to the front center of the aluminum frame. Mount the Intel RealSense D455 in a waterproof dome on the bow or mast. Run the shielded USB 3.0 cable back to the Jetson Orin Nano inside the control box. Mount the dual F9P RTK GPS antennas spaced along the frame, and run their coax cables to the Pixhawk 6X. Route the LoRa, 5G, and Satellite antennas up the carbon fiber mast and connect them to the control box bulkheads.
 
 ---
 
