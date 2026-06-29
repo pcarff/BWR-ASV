@@ -67,6 +67,16 @@ Standard flat butt-joints glued together will fail under the cyclic bending and 
 
 *   **Integrated Bulkheads**: The main advantage of 3D printing is the ability to print solid partition walls inside the model. Slicing the hull into $5$ separate watertight bulkheads ensures that a single hull puncture only floods $20\%$ of the hull volume, preventing a total capsize.
 
+### 3.5 Post-Machining (Turning) of 3D-Printed Parts
+FDM parts printed in Nylon 12 (PA12) or Carbon-Fiber Nylon (PA12-CF) can be post-machined on a lathe to achieve high-precision clearances for O-ring grooves and bearing seats, provided the following parameters are maintained:
+*   **Solid Stock Prep**: The area to be machined **must be printed with 100% solid infill** and a high wall perimeter count. If the cutting tool encounters a hollow infill cavity, the part will instantly tear and fail.
+*   **Heat Management & Tooling**: Plastics have low melting points (PA12 melts at $\approx 178^\circ\text{C}$). To prevent melting:
+    *   Use **extremely sharp cutting tools** with high positive rake angles (HSS or highly polished carbide inserts designed for aluminum). Avoid dull tools or steel inserts.
+    *   Set moderate spindle speeds ($500\text{–}1000\text{ RPM}$) but a **high feed rate** with a continuous, relatively deep cut. Scraping or taking too shallow of a cut will generate friction heat and gum up the tool.
+    *   Apply compressed air or liquid coolant constantly to carry chips away.
+*   **Layer Alignment & Shear Stress**: Printed parts are weaker along inter-layer seams. Minimize shear loads by taking light finishing passes ($\le 0.2\text{ mm}$ depth of cut) and, if possible, orienting the print layers perpendicular to the lathe spindle axis.
+*   **Abrasive Fillers (Carbon Fiber)**: If turning PA12-CF, standard HSS tools will dull in seconds. You **must use carbide tools** (or PCD diamond). Wear a respirator and use dust containment, as composite dust is a severe inhalation hazard.
+
 ---
 
 ## 4. Final Recommendation Summary
