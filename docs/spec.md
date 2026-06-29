@@ -54,29 +54,29 @@ By decoupling High-Level Mission Control from Low-Level Actuation, high-level mi
 
 #### 5.1 System Power Consumption Load (Estimates)
 We define the power load under continuous 24-hour operation on open water:
-\[P_{total} = P_{compute} + P_{sensors} + P_{propulsion}\]
+P_total = P_compute + P_sensors + P_propulsion
 
-* **Edge Compute + Telemetry Node**: \(12\text{V} \times 1.5\text{A} = 18\text{W}\)
-* **Sensors** (GPS, IMU, Marine Cameras): \(12\text{V} \times 1.0\text{A} = 12\text{W}\)
-* **Propulsion** (Average cruising thrust over water): \(48\text{V} \times 1.25\text{A} = 60\text{W}\)
+* **Edge Compute + Telemetry Node**: 12V  x  1.5A = 18W
+* **Sensors** (GPS, IMU, Marine Cameras): 12V  x  1.0A = 12W
+* **Propulsion** (Average cruising thrust over water): 48V  x  1.25A = 60W
 
 **Continuous Watt-Hour Load per day**:
-\[(18\text{W} + 12\text{W} + 60\text{W}) \times 24\text{ hours} = 2,160\text{ Wh/day}\]
+(18W + 12W + 60W)  x  24 hours = 2,160 Wh/day
 
 #### 5.2 Battery Capacity Sizing (LiFePO4)
-To protect system health, we enforce a maximum Depth of Discharge (DoD) of 80% (\(DoD = 0.8\)) and size for 2 days of complete solar autonomy (e.g., traveling through extended storm fronts).
+To protect system health, we enforce a maximum Depth of Discharge (DoD) of 80% (DoD = 0.8) and size for 2 days of complete solar autonomy (e.g., traveling through extended storm fronts).
 
-\[\text{Required Battery Capacity (Wh)} = \frac{\text{Daily Load} \times \text{Autonomy Days}}{\text{DoD}}\]
-\[\text{Required Capacity} = \frac{2,160\text{ Wh/day} \times 2\text{ days}}{0.8} = 5,400\text{ Wh}\]
+Required Battery Capacity (Wh) = (Daily Load  x  Autonomy Days) / (DoD)
+Required Capacity = (2,160 Wh/day  x  2 days) / (0.8) = 5,400 Wh
 
 Converted to a standard 48V system metric:
-\[\text{Amp-Hour Rating} = \frac{5,400\text{ Wh}}{48\text{V}} = 112.5\text{ Ah}\]
+Amp-Hour Rating = (5,400 Wh) / (48V) = 112.5 Ah
 * **Vessel Specification Baseline**: Minimum 48V battery bank rated for **115 Ah**.
 
 #### 5.3 Solar Array Sizing
-The solar array must replenish a daily consumption of \(2,160\text{ Wh}\) within average daylight conditions. Assuming a conservative 5 Peak Sun Hours per day along the Southern US coastline, and an overall marine system efficiency factor of 75% due to panel angling and splash residue:
+The solar array must replenish a daily consumption of 2,160 Wh within average daylight conditions. Assuming a conservative 5 Peak Sun Hours per day along the Southern US coastline, and an overall marine system efficiency factor of 75% due to panel angling and splash residue:
 
-\[\text{Required Solar Power (Watts)} = \frac{\text{Daily Consumption (Wh)}}{\text{Peak Sun Hours} \times \text{Efficiency}}\]
-\[\text{Required Solar Power} = \frac{2,160\text{ Wh}}{5\text{ hours} \times 0.75} = 576\text{ W}\]
+Required Solar Power (Watts) = (Daily Consumption (Wh)) / (Peak Sun Hours  x  Efficiency)
+Required Solar Power = (2,160 Wh) / (5 hours  x  0.75) = 576 W
 
 * **Solar Specification Gap Note**: Our initial baseline 400W solar panel array leaves a deficit under continuous propulsion. To maintain net-positive power charging without relying on secondary fuel generators, the physical design must expand to a 600W solar array or the software profile must throttle propulsion down to lower duty cycles during low-light days.

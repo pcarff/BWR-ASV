@@ -49,7 +49,7 @@ graph TD
 ## 2. Critical Vulnerabilities & Failure Modes
 
 ### 2.1 Hydrostatic Pressure & Ingress Risk
-*   **Vulnerability**: Submerging the high-voltage lithium battery bank, electronic speed controller (ESC), and solar charging circuitry at $z = -450\text{ mm}$ places them under continuous hydrostatic pressure. 
+*   **Vulnerability**: Submerging the high-voltage lithium battery bank, electronic speed controller (ESC), and solar charging circuitry at z = -450 mm places them under continuous hydrostatic pressure. 
 *   **Failure Mechanism**: Thermal cycling (heating during charging/propulsion, cooling at night) creates pressure differentials inside the pod. This drives moisture through microscopic gaps in O-rings, PVC cement joints, or the rudder's rubber sealing boot. A single drop of saltwater inside the battery compartment can cause a cell short-circuit, rapid galvanic corrosion, or thermal runaway.
 
 ### 2.2 Weed & Debris Accumulation (The "Rake" Effect)
@@ -106,8 +106,8 @@ graph TD
     ESC2 -->|Shielded Conduit| M2
 ```
 
-1.  **Relocate Batteries to the Deck**: Move the $35\text{ kg}$ battery bank out of the water into a gasket-sealed, IP67 deck-mounted polycarbonate box. This removes them from hydrostatic pressure. Use a Gore-Tex breathing vent to equalize internal pressure without admitting moisture.
-2.  **Use Solid, Non-Electric Ballast**: To maintain self-righting physics without risking the batteries, hang a **solid $15\text{ kg}$ lead bulb** at the bottom of the keel. If the bulb casing is gouged or leaks, there is zero risk of electrical failure.
+1.  **Relocate Batteries to the Deck**: Move the 35 kg battery bank out of the water into a gasket-sealed, IP67 deck-mounted polycarbonate box. This removes them from hydrostatic pressure. Use a Gore-Tex breathing vent to equalize internal pressure without admitting moisture.
+2.  **Use Solid, Non-Electric Ballast**: To maintain self-righting physics without risking the batteries, hang a **solid 15 kg lead bulb** at the bottom of the keel. If the bulb casing is gouged or leaks, there is zero risk of electrical failure.
 3.  **Implement Differential Steering**: Replace the single centerline motor and mechanical rudder with **dual transom-mounted thrusters** on the outer catamaran hulls.
     *   *Steering*: Directional control is achieved by varying thrust between the left and right motors, eliminating the rudder servo, mechanical linkages, and sealing boots.
     *   *Redundancy*: If one motor gets tangled or fails, the autopilot enters a single-thruster safe-return mode to crab the vessel back to land.
@@ -145,8 +145,8 @@ graph TD
 *   **Improvement**: Replace the high-KV airplane motor and belt reduction with a custom-wound, **low-KV brushless outrunner motor** (e.g., 50–100 KV) coupled directly to the internal side of the magnetic coupling.
 *   **Benefit**: Eliminates the timing belt, pulleys, and belt tensioners, removing the primary mechanical wear point. Low-KV motors operate efficiently at low RPMs, matching the optimal propeller speed.
 
-#### 2. Hydrofoil Keel Spar with a $45^\circ$ Sweep
-*   **Improvement**: Replace the vertical struts with a single, high-strength **swept-back metal hydrofoil spar** (e.g., 6061-T6 aluminum or 316 stainless steel) raked at a **$45^\circ$ angle**.
+#### 2. Hydrofoil Keel Spar with a 45° Sweep
+*   **Improvement**: Replace the vertical struts with a single, high-strength **swept-back metal hydrofoil spar** (e.g., 6061-T6 aluminum or 316 stainless steel) raked at a **45° angle**.
 *   **Benefit**: Seaweed, kelp, and fishing lines strike the leading edge of the spar and naturally slide down, shedding off the bottom of the keel pod rather than wrapping around the mount.
 
 #### 3. Slim, Low-Drag Magnetic Coupling with Steel Back-Iron
@@ -167,7 +167,7 @@ graph TD
 
 | Feature | Original SeaCharger Keel | Strategy A (Catamaran/Option F) | Strategy B (Refined Monohull Keel) |
 | :--- | :--- | :--- | :--- |
-| **Enclosure Pressure** | High Hydrostatic ($z = -450\text{ mm}$) | Atmospheric (Deck-Mounted) | High Hydrostatic ($z = -450\text{ mm}$) |
+| **Enclosure Pressure** | High Hydrostatic (z = -450 mm) | Atmospheric (Deck-Mounted) | High Hydrostatic (z = -450 mm) |
 | **Battery Safety** | Vulnerable to micro-leaks | Absolute Protection | Vulnerable (needs redundant chambers) |
 | **Transmission Type** | 4:1 Belt Drive (GT2 Belt) | Direct Drive (Wet-Running Rotor) | Direct Drive (Low-KV Motor) |
 | **Steering Mechanism** | Single Rudder + Servo + Boot | Differential Thrust (Rudderless) | Centerline Rudder or Thruster Rotation |

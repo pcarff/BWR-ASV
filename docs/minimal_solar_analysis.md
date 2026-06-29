@@ -8,13 +8,13 @@ Below is the power breakdown for the three minimal solar configurations we can c
 
 ## 1. Power Consumption Baselines
 
-*   **Avionics Core (Pi Zero W + sensors + GPS):** $1.0\text{ W} + 0.5\text{ W} = \mathbf{1.5\text{ W}}$
-*   **MPPT Charge Controller Efficiency ($\eta$):** $95\%$
-*   **Solar Harvest Coefficient (Flat Marine Deck):** $75\%$ (due to splash residue, panel angle, and temp degradation)
-*   **Daylight Factor (Coastal US):** Average of $5.0$ Peak Sun Hours per day.
+*   **Avionics Core (Pi Zero W + sensors + GPS):** 1.0 W + 0.5 W = \mathbf{1.5 W}
+*   **MPPT Charge Controller Efficiency (eta):** 95\%
+*   **Solar Harvest Coefficient (Flat Marine Deck):** 75\% (due to splash residue, panel angle, and temp degradation)
+*   **Daylight Factor (Coastal US):** Average of 5.0 Peak Sun Hours per day.
 
 Daily solar energy production formula:
-$$E_{harvest} = P_{solar} \times 5.0\text{ hours} \times 0.75 \times 0.95 \approx P_{solar} \times 3.56\text{ Wh/day per Watt of panel}$$
+E_harvest = P_solar  x  5.0 hours  x  0.75  x  0.95 ~ P_solar  x  3.56 Wh/day per Watt of panel
 
 ---
 
@@ -26,8 +26,8 @@ $$E_{harvest} = P_{solar} \times 5.0\text{ hours} \times 0.75 \times 0.95 \appro
 | **Edge Avionics** | 1.5 W (Continuous) | 1.5 W (Continuous) | 1.5 W (Continuous) |
 | **Propulsion Power**| 0 W | 15.0 W (Cruising) | 30.0 W (Continuous Cruising) |
 | **Continuous Load**| **1.5 W** | **16.5 W** | **31.5 W** |
-| **Daily energy load**| $36.0\text{ Wh/day}$ | $396.0\text{ Wh/day}$ | $756.0\text{ Wh/day}$ |
-| **Calculated Solar Panel**| **$10.1\text{ W}$** | **$111.2\text{ W}$** | **$212.4\text{ W}$** |
+| **Daily energy load**| 36.0 Wh/day | 396.0 Wh/day | 756.0 Wh/day |
+| **Calculated Solar Panel**| **10.1 W** | **111.2 W** | **212.4 W** |
 | **Recommended Array**| **15W to 20W Panel** | **Single 100W Panel** | **Single 200W or Dual 100W Panels** |
 | **Vessel Speed** | 0.0 Knots (Drifting) | 2.5 Knots (approx. 15W throttle) | 3.5 Knots (approx. 30W throttle) |
 
@@ -37,18 +37,18 @@ $$E_{harvest} = P_{solar} \times 5.0\text{ hours} \times 0.75 \times 0.95 \appro
 
 ### Scenario A: Survival / Drift Mode (15W – 20W Panel)
 *   **Use Case:** Emergency backup or passive drifting research buoy.
-*   **Hardware:** A small marine-grade 15W or 20W flexible panel (approx. $30\text{cm} \times 35\text{cm}$).
+*   **Hardware:** A small marine-grade 15W or 20W flexible panel (approx. 30cm  x  35cm).
 *   **Feasibility:** Extremely high. This array fits on almost any hull (even a tiny buoy) and guarantees that the GPS, IMU, Pi Zero, and LoRa Meshcore link run indefinitely. If propulsion fails, this system will transmit tracking signals for recovery.
 
 ### Scenario B: Local Prototype / 1.0m Option C (100W Panel)
 *   **Use Case:** Calm-water testing, debugging waypoint algorithms, and local telemetry range checks.
-*   **Hardware:** Single standard 100W flexible solar panel (approx. $100\text{cm} \times 50\text{cm}$).
-*   **Feasibility:** Matches the footprint of the 1.0m Prototype (Option C). Under typical daylight conditions, a 100W panel generates about $356\text{ Wh/day}$. 
-    *   *Energy balance:* Running a 15W cruising throttle consumes $396\text{ Wh/day}$. This leaves a minor deficit of $40\text{ Wh/day}$, which is easily buffered by a small 12V 20Ah battery bank (240 Wh), allowing multiple days of active lake trials.
+*   **Hardware:** Single standard 100W flexible solar panel (approx. 100cm  x  50cm).
+*   **Feasibility:** Matches the footprint of the 1.0m Prototype (Option C). Under typical daylight conditions, a 100W panel generates about 356 Wh/day. 
+    *   *Energy balance:* Running a 15W cruising throttle consumes 396 Wh/day. This leaves a minor deficit of 40 Wh/day, which is easily buffered by a small 12V 20Ah battery bank (240 Wh), allowing multiple days of active lake trials.
 
 ### Scenario C: Throttled Ocean Cruiser (200W Array)
 *   **Use Case:** The full 650–700 NM ocean voyage (Charleston to Tampa) on a scaled-down budget and deck size.
-*   **Hardware:** Single 200W or dual 100W panels (approx. $1.0\text{ m}^2$ total deck footprint).
+*   **Hardware:** Single 200W or dual 100W panels (approx. 1.0 m² total deck footprint).
 *   **Feasibility:** In the original Pi 5 design, we required at least a **576W solar array** (demanding a heavy 600W catamaran deck). 
     *   With the Pi Zero W, we can drop the continuous cruising propulsion to 30W (pushing a lightweight catamaran at ~3.5 knots). 
-    *   The total daily load is $756\text{ Wh/day}$. A **200W solar array** will harvest $712\text{ Wh/day}$, bringing the vessel within a negligible $44\text{ Wh/day}$ deficit. This deficit can be managed by throttling propulsion down slightly during overcast hours.
+    *   The total daily load is 756 Wh/day. A **200W solar array** will harvest 712 Wh/day, bringing the vessel within a negligible 44 Wh/day deficit. This deficit can be managed by throttling propulsion down slightly during overcast hours.

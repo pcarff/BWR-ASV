@@ -10,10 +10,10 @@ This repository contains the physical specifications, control system architectur
 
 ### 1.1 Hydro-Stabilized Catamaran (Option F)
 The vessel utilizes a true catamaran hull configuration optimized for seaworthiness, low hydrodynamic drag, and high solar panel surface area:
-*   **Hulls**: Dual 6-inch SDR-35 PVC pontoons ($2.53\text{m}$ length) spaced $800\text{mm}$ center-to-center, floating at a safe and efficient $50\%$ draft.
-*   **Stability**: Swept-back aluminum foil keel fin ($45^\circ$ rake angle) terminating in a submerged $15\text{ kg}$ solid lead ballast bulb. This configuration provides a powerful recovery righting moment for automated self-righting during capsize without housing any sensitive electronics underwater.
+*   **Hulls**: Dual 6-inch SDR-35 PVC pontoons (2.53m length) spaced 800mm center-to-center, floating at a safe and efficient 50\% draft.
+*   **Stability**: Swept-back aluminum foil keel fin (45° rake angle) terminating in a submerged 15 kg solid lead ballast bulb. This configuration provides a powerful recovery righting moment for automated self-righting during capsize without housing any sensitive electronics underwater.
 *   **Propulsion**: Dual transom-mounted BlueRobotics T200 brushless underwater thrusters. Directional steering is achieved entirely via differential thrust (rudderless), eliminating mechanical steering linkages.
-*   **Power**: An $800\text{W}$ deck-mounted monocrystalline flexible solar array split into dual independent MPPT charging circuits feeding a deck-mounted $48\text{V } 115\text{Ah}$ LiFePO4 battery bank.
+*   **Power**: An 800W deck-mounted monocrystalline flexible solar array split into dual independent MPPT charging circuits feeding a deck-mounted 48V  115Ah LiFePO4 battery bank.
 
 ### 1.2 Three-Tier Control Stack Architecture
 The onboard avionics are isolated into independent tiers to guarantee core navigation and survival even during software lockups or perception reboots:

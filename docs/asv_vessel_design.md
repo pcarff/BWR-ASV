@@ -13,7 +13,7 @@ Selecting the optimal hull shape represents the fundamental trade-off in solar-e
 
 | Metric | Monohull (Deep-V) | Catamaran (Dual-Pontoon) | Trimaran (Stabilized Outriggers) |
 | :--- | :--- | :--- | :--- |
-| **Drag Coefficient (\(C_d\))** | 1.20 (Base) | 0.85 (Low) | 0.75 (Very Low) |
+| **Drag Coefficient (C_d)** | 1.20 (Base) | 0.85 (Low) | 0.75 (Very Low) |
 | **Solar Deck Area** | Max 400W | Max 600W | Max 800W |
 | **Hull Weight** | 45 kg | 60 kg | 75 kg |
 | **Transverse Stability** | Low (Heels in wind/waves) | High (Resists heeling) | Very High (Highly stable) |
@@ -38,33 +38,33 @@ graph TD
 ## 2. Power Architecture & Sizing
 
 The ASV operates on a closed-loop energy cycle. The power balance equation is defined as:
-\[P_{net} = P_{solar} \cdot \eta_{mppt} - (P_{propulsion} + P_{edge} + P_{sensors})\]
+P_net = P_solar  *  eta_mppt - (P_propulsion + P_edge + P_sensors)
 
 ### 2.1 Daily Energy Consumption
 The continuous power draw for the subsystems is calculated as follows:
-* **Edge Compute + Avionics**: \(12\text{V} \times 1.8\text{A} = 21.6\text{W}\) (Pi 5 baseline)
-* **Sub-Avionics & Sensors**: \(12\text{V} \times 0.7\text{A} = 8.4\text{W}\) (RTK-GPS, IMU, LoRa transceiver)
-* **Propulsion (Cruising Speed)**: \(48\text{V} \times 1.25\text{A} = 60\text{W}\)
+* **Edge Compute + Avionics**: 12V  x  1.8A = 21.6W (Pi 5 baseline)
+* **Sub-Avionics & Sensors**: 12V  x  0.7A = 8.4W (RTK-GPS, IMU, LoRa transceiver)
+* **Propulsion (Cruising Speed)**: 48V  x  1.25A = 60W
 
-\[P_{loads} = 21.6\text{W} + 8.4\text{W} + 60\text{W} = 90\text{W}\]
-\[\text{Daily Consumption} = 90\text{W} \times 24\text{ hours} = 2,160\text{ Wh/day}\]
+P_loads = 21.6W + 8.4W + 60W = 90W
+Daily Consumption = 90W  x  24 hours = 2,160 Wh/day
 
 ### 2.2 Battery Bank Sizing (LiFePO4)
 To ensure system survival during stormy conditions, we design for **2 days of complete autonomy** at a maximum **80% Depth of Discharge (DoD)**:
 
-\[\text{Required Battery Capacity} = \frac{2,160\text{ Wh/day} \times 2\text{ days}}{0.8} = 5,400\text{ Wh}\]
+Required Battery Capacity = (2,160 Wh/day  x  2 days) / (0.8) = 5,400 Wh
 
 Standardized to our 48V system:
-\[\text{Battery Capacity (Ah)} = \frac{5,400\text{ Wh}}{48\text{V}} = 112.5\text{ Ah}\]
+Battery Capacity (Ah) = (5,400 Wh) / (48V) = 112.5 Ah
 * **Selected Battery**: **48V 115Ah LiFePO4 bank** (5,520 Wh capacity).
 
 ### 2.3 Solar Array Sizing & Solar Deficit
 Assuming a conservative **5 Peak Sun Hours** per day along the Florida coast, and a **75% efficiency coefficient** (due to panel pitch, splash residue, and temperature losses):
 
-\[\text{Required Solar Power} = \frac{2,160\text{ Wh}}{5\text{ hours} \times 0.75} = 576\text{ W}\]
+Required Solar Power = (2,160 Wh) / (5 hours  x  0.75) = 576 W
 
 > [!WARNING]
-> **The 400W Sizing Gap**: The initial 400W solar panel configuration can generate at most \(400\text{W} \times 5 \times 0.75 = 1,500\text{ Wh/day}\), leaving a daily deficit of **660 Wh**.
+> **The 400W Sizing Gap**: The initial 400W solar panel configuration can generate at most 400W  x  5  x  0.75 = 1,500 Wh/day, leaving a daily deficit of **660 Wh**.
 > To resolve this without manual refueling:
 > 1. Expand the solar deck area to a **600W array** (requires Catamaran/Trimaran hull).
 > 2. Implement **Software Propulsion Throttling** to automatically reduce motor power during low-light/overcast days.
@@ -82,11 +82,11 @@ The vessel utilizes **dual 48V brushless underwater thrusters** mounted in a dif
 ```
 
 * **Differential Heading Formula**:
-  The rate of rotation \(\omega\) is proportional to the difference in thrust between the left and right thrusters:
-  \[\omega \propto (T_{right} - T_{left}) \cdot L_{beam}\]
-  Where \(L_{beam}\) is the vessel's beam width.
+  The rate of rotation omega is proportional to the difference in thrust between the left and right thrusters:
+  omega  proportional to  (T_right - T_left)  *  L_beam
+  Where L_beam is the vessel's beam width.
 * **Propulsion Speed Power Curve**:
-  \[V_{boat} = V_{max} \cdot \sqrt{\frac{P_{thrust}}{P_{max}}}\]
+  V_boat = V_max  *  \sqrt{(P_thrust) / (P_max)}
   A cruise throttle of 60W drives the boat at approximately 5.0 knots.
 
 ---
@@ -113,8 +113,8 @@ The software stack utilizes a hybrid isolation architecture to guarantee system 
 Using the Edge Compute board, the vessel processes sensory data to avoid coastal marine hazards:
 1. **STM32 Only**: Static waypoint follower. No avoidance.
 2. **Raspberry Pi 5 / Jetson Orin Nano**: Active vector steering. If an obstacle is detected within 15 NM, the high-level navigator computes an avoidance offset:
-   \[\theta_{avoid} = \theta_{target} + \frac{K_{avoid}}{d_{obstacle}} \cdot \text{sign}(\phi)\]
-   Where \(d_{obstacle}\) is the distance, and \(\phi\) is the angle to the obstacle center relative to the course.
+   theta_avoid = theta_target + (K_avoid) / (d_obstacle)  *  sign(phi)
+   Where d_obstacle is the distance, and phi is the angle to the obstacle center relative to the course.
 
 ---
 
@@ -184,7 +184,7 @@ This design scales the baseline catamaran up by 15% to increase deck area while 
 * **Pontoon Hulls**: Dual 8-inch (200mm) SDR-35 PVC pipes (recommended for weight savings; see the [Hull 3D Printing & Weight Evaluation](file:///workspaces/BWR_ASV/docs/pontoon_3d_print_evaluation.md)), 2.53m length, sealed with domed end-caps.
 * **Beam Width**: 1.6m (total overall width).
 * **Frame**: 2020 (20mm x 20mm) T-slot anodized aluminum extrusions.
-* **Solar Deck**: $4.1\text{ m}^2$ rectangular flat deck made of 4mm Coroplast, supporting eight 100W flexible solar panels (4s2p wiring).
+* **Solar Deck**: 4.1 m² rectangular flat deck made of 4mm Coroplast, supporting eight 100W flexible solar panels (4s2p wiring).
 * **Waterproofing**: Dual snap-lock heavy-duty dry boxes with compression glands for cable pass-throughs.
 * **3D Assembly Model (Extruded Hulls)**: A parametric 3D CAD model is available at [asv_option_a_model.scad](file:///workspaces/BWR_ASV/asv_option_a_model.scad) for structural visualization of the extruded PVC hull variant.
 * **3D Assembly Model (3D-Printed Hulls)**: A modular 3D-printed assembly model is available at [asv_option_a_printed_model.scad](file:///workspaces/BWR_ASV/asv_option_a_printed_model.scad), showcasing printed segments, bulkheads, joint collars, and internal tension spars.
@@ -207,7 +207,7 @@ This design utilizes a long, narrow deck specifically optimized for standard-dim
 * **Pontoon Hulls**: Dual 6-inch (150mm) SDR-35 PVC pipes (recommended for weight savings; see the [Hull 3D Printing & Weight Evaluation](file:///workspaces/BWR_ASV/docs/pontoon_3d_print_evaluation.md)), 3.40m length, sealed with aerodynamic dome end-caps.
 * **Beam Width**: 1.2m (sleeker aspect ratio to reduce wave-making resistance).
 * **Frame**: 2020 (20mm x 20mm) T-slot anodized aluminum.
-* **Solar Deck**: Long centerline corridor deck ($3.0\text{m} \times 1.4\text{m}$) holding four 200W flexible panels in an end-to-end centerline grid.
+* **Solar Deck**: Long centerline corridor deck (3.0m  x  1.4m) holding four 200W flexible panels in an end-to-end centerline grid.
 * **Waterproofing**: Compact locking food-grade polycarbonate containers positioned aft of the panels.
 
 #### Space-Saving Construction Steps
@@ -235,7 +235,7 @@ This design is a scaled-down development platform of Option A, optimized for tes
 
 #### Space-Saving Construction Steps
 1. **Compact Tube Hulls**: Cut two 4-inch PVC pipes to 1.0m. Cement end-caps.
-2. **Simplified Framing**: Assemble a simple rectangular frame using 2020 aluminum extrusions ($1.0\text{m} \times 0.6\text{m}$).
+2. **Simplified Framing**: Assemble a simple rectangular frame using 2020 aluminum extrusions (1.0m  x  0.6m).
 3. **Single Panel Mounting**: Mount the single 100W flexible solar panel directly across the center deck extrusions.
 4. **Bench-Friendly Sizing**: This prototype fits easily on a standard workbench/kitchen table and can be transported fully assembled in the trunk of a car.
 
@@ -247,10 +247,10 @@ This design adapts SeaCharger's weight-saving, ballast-keel philosophy to a cata
 
 #### Technical Specifications & Sizing
 * **Pontoon Hulls**: Dual 4-inch (100mm) or 6-inch (150mm) PVC pipes, 2.53m length, acting as outer stabilizing pontoons.
-* **Central Keel Tube**: A single 4-inch or 6-inch PVC pipe suspended below the centerline, housing the heavy 48V 115Ah battery bank ($35\text{ kg}$).
-* **Beam Width**: $0.8\text{m}\text{–}1.0\text{m}$ (highly compact footprint).
+* **Central Keel Tube**: A single 4-inch or 6-inch PVC pipe suspended below the centerline, housing the heavy 48V 115Ah battery bank (35 kg).
+* **Beam Width**: 0.8m–1.0m (highly compact footprint).
 * **Frame**: 2020 (20mm x 20mm) T-slot anodized aluminum extrusions connecting the three parallel tubes.
-* **Solar Deck**: $1.0\text{m} \times 2.1\text{m}$ lightweight Coroplast deck supporting eight 100W flexible solar panels (cantilevered to overhang the hulls slightly).
+* **Solar Deck**: 1.0m  x  2.1m lightweight Coroplast deck supporting eight 100W flexible solar panels (cantilevered to overhang the hulls slightly).
 * **Propulsion & Steering**: Dual thrusters on outer hulls for differential steering, or a single centerline thruster at the stern of the keel tube with a mechanical rudder.
 * **Full Design Details**: A complete integrated comparison and design trade-off study is available in the [Systems Engineering Assessment & Recommendations](file:///workspaces/BWR_ASV/docs/vessel_assessment_recommendations.md).
 
@@ -258,7 +258,7 @@ This design adapts SeaCharger's weight-saving, ballast-keel philosophy to a cata
 1. **Triple-Tube Preparation**: Cut three PVC pipes (two outer pontoons, one central keel) to 2.53m. Glue domed end-caps.
 2. **Suspended Keel Assembly**: Bolt the central keel tube slightly below the level of the outer pontoons using custom 2020 bracket extensions to lower the Center of Gravity.
 3. **Internal Battery Fitting**: Slide the LiFePO4 cells into the central keel tube, ensuring they are tightly packed with foam inserts to prevent shifting.
-4. **Bench-Friendly Sizing**: Due to the narrow $1.0\text{m}$ beam, this entire catamaran can be assembled on a single workbench and transported fully built on a car roof rack.
+4. **Bench-Friendly Sizing**: Due to the narrow 1.0m beam, this entire catamaran can be assembled on a single workbench and transported fully built on a car roof rack.
 
 ---
 
@@ -267,11 +267,11 @@ This design adapts SeaCharger's weight-saving, ballast-keel philosophy to a cata
 This configuration features two touching outboard pontoons at the waterline and a vertical keel fin slung centerline, terminating in a submerged keel bulb that houses the heavy battery pack and propulsion thruster.
 
 #### Technical Specifications & Sizing
-* **Outboard Pontoons**: Dual 6-inch ($168.3\text{mm}$ OD) SDR-35 PVC pipes, $2.53\text{m}$ length, mounted touching along the centerline (total width: $336.6\text{mm}$).
+* **Outboard Pontoons**: Dual 6-inch (168.3mm OD) SDR-35 PVC pipes, 2.53m length, mounted touching along the centerline (total width: 336.6mm).
 * **3D-Printed Bow Cap**: A custom dual-nosed aerodynamic bow piece printed in ASA to merge both pontoon pipes at the front.
-* **Vertical Keel Fin**: Single 3-inch ($88.9\text{mm}$ OD) PVC pipe (wiring conduit) with an aerodynamic printed ASA hydrofoil shroud, extending 400mm down.
-* **Keel Bulb**: A $140\text{mm}$ diameter, $900\text{mm}$ long PVC capsule slung centerline at $z=-450\text{mm}$, with a 3D-printed nose cone. Houses the $35\text{ kg}$ battery pack.
-* **Beam Width**: $1.0\text{m}$ (extrusion frame) / $1.4\text{m}$ (solar deck).
+* **Vertical Keel Fin**: Single 3-inch (88.9mm OD) PVC pipe (wiring conduit) with an aerodynamic printed ASA hydrofoil shroud, extending 400mm down.
+* **Keel Bulb**: A 140mm diameter, 900mm long PVC capsule slung centerline at z=-450mm, with a 3D-printed nose cone. Houses the 35 kg battery pack.
+* **Beam Width**: 1.0m (extrusion frame) / 1.4m (solar deck).
 * **Propulsion & Steering**: Single centerline thruster and Delrin mechanical rudder mounted at the stern of the central keel bulb.
 * **Full Design Details**: A complete integrated comparison and design trade-off study is available in the [Systems Engineering Assessment & Recommendations](file:///workspaces/BWR_ASV/docs/vessel_assessment_recommendations.md).
 

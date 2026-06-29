@@ -43,7 +43,7 @@ Method B: GPIO Pin Header Interface (Space-Saving)
 To protect the autopilot against bit-flips caused by electromagnetic interference (EMI) from the dual thrusters and the solar charge controllers, every message must reside inside an integrity frame containing a **one-byte XOR checksum**.
 
 ### 2.1 Frame Format
-$$\texttt{\$[Payload]*[2-Character Hex Checksum]\textbackslash n}$$
+\texttt{\$[Payload]*[2-Character Hex Checksum]\textbackslash n}
 
 *   `$` (0x24) : Start of Frame delimiter.
 *   `*` (0x2A) : Checksum separator.
