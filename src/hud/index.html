@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blue-Water Rover - HUD Avionics Mission Control</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- Load Outfit and JetBrains Mono Fonts from Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Background Grid Glow Effect -->
+  <div class="background-grid"></div>
+
+  <!-- Header Section -->
+  <header>
+    <div class="header-logo-group">
+      <div class="logo-circle">
+        <span class="logo-icon">▲</span>
+      </div>
+      <div class="title-group">
+        <h1>Blue-Water Rover HUD</h1>
+        <p class="subtitle">Avionics Companion & Mission Control | Project BWR-ASV</p>
+      </div>
+    </div>
+
+    <!-- Live System Mode Indicators -->
+    <div class="header-indicators">
+      <div class="mode-indicator" id="mode-badge">
+        <span class="indicator-label">Control Mode</span>
+        <span class="indicator-value" id="mode-val">MANUAL</span>
+      </div>
+      <div class="connection-indicators">
+        <div class="conn-tag" id="tag-gps">
+          <span class="tag-dot"></span> GPS
+        </div>
+        <div class="conn-tag" id="tag-rc">
+          <span class="tag-dot"></span> RC Link
+        </div>
+        <div class="conn-tag" id="tag-lora">
+          <span class="tag-dot"></span> MeshCore
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main HUD Layout Grid -->
+  <main class="hud-grid">
+    
+    <!-- LEFT PANEL: Circular Telemetry Dials & Power Vitals -->
+    <section class="hud-panel" id="vitals-panel">
+      <div class="panel-header">
+        <h2><span class="panel-glow-dot cyan"></span>Power & Propulsion Vitals</h2>
+      </div>
+      <div class="panel-body">
+        
+        <!-- Large Dial Row -->
+        <div class="dial-container">
+          <div class="dial-card" id="dial-battery">
+            <svg class="progress-ring" width="120" height="120">
+              <circle class="progress-ring-bg" cx="60" cy="60" r="50"/>
+              <circle class="progress-ring-bar emerald-glow" id="ring-battery" cx="60" cy="60" r="50"/>
+            </svg>
+            <div class="dial-text">
+              <span class="dial-val" id="val-battery">85.0</span>
+              <span class="dial-unit">%</span>
+            </div>
+            <span class="dial-label">Battery Level</span>
+          </div>
+
+          <div class="dial-card" id="dial-net">
+            <svg class="progress-ring" width="120" height="120">
+              <circle class="progress-ring-bg" cx="60" cy="60" r="50"/>
+              <circle class="progress-ring-bar amber-glow" id="ring-net" cx="60" cy="60" r="50"/>
+            </svg>
+            <div class="dial-text">
+              <span class="dial-val" id="val-net">+208</span>
+              <span class="dial-unit">W</span>
+            </div>
+            <span class="dial-label">Net Balance</span>
+          </div>
+        </div>
+
+        <!-- Horizontal Micro Metrics -->
+        <div class="metric-list">
+          <div class="metric-row">
+            <div class="metric-item">
+              <span class="metric-label">Battery Voltage</span>
+              <div class="metric-value">
+                <span class="val-large" id="val-volts">51.2</span>
+                <span class="val-unit">V</span>
+              </div>
+            </div>
+            <div class="metric-item">
+              <span class="metric-label">Solar Harvest</span>
+              <div class="metric-value">
+                <span class="val-large cyan-text" id="val-solar">280.0</span>
+                <span class="val-unit">W</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="metric-row">
+            <div class="metric-item">
+              <span class="metric-label">Propulsion Draw</span>
+              <div class="metric-value">
+                <span class="val-large amber-text" id="val-prop">60.0</span>
+                <span class="val-unit">W</span>
+              </div>
+            </div>
+            <div class="metric-item">
+              <span class="metric-label">Systems Power</span>
+              <div class="metric-value">
+                <span class="val-large" id="val-sys">12.0</span>
+                <span class="val-unit">W</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="actuator-feedback">
+          <h3>Rudder & Throttle Outputs</h3>
+          <div class="bar-group">
+            <div class="bar-header">
+              <span>Throttle PWM</span>
+              <span id="label-throttle-pwm">1500 us</span>
+            </div>
+            <div class="bar-wrapper">
+              <div class="bar-fill cyan-bg" id="bar-throttle" style="width: 50%;"></div>
+            </div>
+          </div>
+
+          <div class="bar-group">
+            <div class="bar-header">
+              <span>Rudder PWM</span>
+              <span id="label-rudder-pwm">1500 us</span>
+            </div>
+            <div class="bar-wrapper center-origin">
+              <div class="bar-fill amber-bg" id="bar-rudder" style="width: 0%; left: 50%;"></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- CENTER PANEL: Compass Navigation, Depth Radar & Mapping -->
+    <section class="hud-panel" id="nav-panel">
+      <div class="panel-header">
+        <h2><span class="panel-glow-dot amber"></span>Navigation & Avoidance Radar</h2>
+      </div>
+      <div class="panel-body nav-body">
+        
+        <div class="top-nav-row">
+          <!-- Compass Navigation -->
+          <div class="compass-card">
+            <div class="compass-ring">
+              <div class="compass-rose" id="compass-rose-element">
+                <span class="dir dir-n">N</span>
+                <span class="dir dir-e">E</span>
+                <span class="dir dir-s">S</span>
+                <span class="dir dir-w">W</span>
+              </div>
+              <div class="compass-pointer heading-pointer"></div>
+              <div class="compass-pointer bearing-pointer" id="bearing-pointer-element"></div>
+            </div>
+            <div class="compass-readouts">
+              <div class="readout">
+                <span class="label">Heading</span>
+                <span class="value" id="val-heading">180°</span>
+              </div>
+              <div class="readout">
+                <span class="label">Bearing</span>
+                <span class="value amber-text" id="val-bearing">192°</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- D455 Proximity Avoidance Radar -->
+          <div class="radar-card">
+            <div class="radar-display">
+              <div class="radar-grid-arc"></div>
+              <!-- Proximity Sectors -->
+              <div class="radar-sector sector-left" id="radar-left">
+                <div class="sector-fill"></div>
+                <span class="radar-dist-label" id="radar-lbl-left">20m</span>
+              </div>
+              <div class="radar-sector sector-center" id="radar-center">
+                <div class="sector-fill"></div>
+                <span class="radar-dist-label" id="radar-lbl-center">20m</span>
+              </div>
+              <div class="radar-sector sector-right" id="radar-right">
+                <div class="sector-fill"></div>
+                <span class="radar-dist-label" id="radar-lbl-right">20m</span>
+              </div>
+              <div class="radar-vessel-marker">▲</div>
+            </div>
+            <span class="radar-card-title">RealSense D455 Proximity</span>
+          </div>
+        </div>
+
+        <!-- Integrated SVG Map -->
+        <div class="map-card">
+          <div class="map-container">
+            <svg id="svg-map" viewBox="0 0 500 350">
+              <!-- Grid lines -->
+              <defs>
+                <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
+                  <path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(255,255,255,0.02)" stroke-width="1"/>
+                </pattern>
+              </defs>
+              <rect width="100%" height="100%" fill="url(#grid)" />
+              
+              <!-- Draw Simulated Coastline representing FL shore -->
+              <path id="map-coastline" d="M 50,-50 L 50,50 L 100,100 L 150,120 L 220,130 L 300,120 L 380,80 Q 420,120 400,200 L 380,260 L 320,310 L 250,330 L 100,340 L -50,340" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.1)" stroke-width="2" />
+              
+              <!-- Route Track line -->
+              <polyline id="map-route-track" points="" fill="none" stroke="rgba(255, 179, 0, 0.4)" stroke-width="1.5" stroke-dasharray="4 3" />
+              
+              <!-- Active waypoint and Boat Markers -->
+              <g id="map-waypoints-group"></g>
+              <g id="map-boat-group">
+                <circle id="boat-trail-dot" r="4" fill="rgba(0, 229, 255, 0.8)"></circle>
+                <polygon id="boat-pointer" points="0,-7 -5,6 0,2 5,6" fill="#00e5ff" stroke="#00e5ff" stroke-width="1"></polygon>
+              </g>
+            </svg>
+          </div>
+          <div class="map-legend">
+            <span>SOG: <strong id="val-sog">5.0</strong> KT</span>
+            <span>Dist to WP: <strong id="val-wp-dist">4.2</strong> km</span>
+            <span>WP Queue: <strong id="val-wp-q">0</strong></span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- RIGHT PANEL: Console controls, waypoints inputs, raw feeds -->
+    <section class="hud-panel" id="console-panel">
+      <div class="panel-header">
+        <h2><span class="panel-glow-dot red"></span>Interactive Console & Controls</h2>
+      </div>
+      <div class="panel-body console-body">
+        
+        <!-- Emergency Big Red Controls -->
+        <div class="emergency-controls">
+          <button class="btn btn-danger" id="btn-kill">EMERGENCY MOTOR KILL</button>
+          <button class="btn btn-secondary" id="btn-reset-kill">RESET SHUTDOWN</button>
+        </div>
+
+        <div class="control-toggle-row">
+          <button class="btn" id="btn-mode-toggle">SWITCH TO AUTO</button>
+          <button class="btn btn-secondary" id="btn-clear-wps">CLEAR WAYPOINTS</button>
+        </div>
+
+        <!-- Waypoint manual inject form -->
+        <div class="console-sub-section">
+          <h3>Inject Waypoint (Global Coordinates)</h3>
+          <form id="wp-inject-form" class="wp-form">
+            <div class="form-inputs">
+              <input type="number" step="0.000001" placeholder="Latitude" id="input-lat" required>
+              <input type="number" step="0.000001" placeholder="Longitude" id="input-lon" required>
+            </div>
+            <button type="submit" class="btn btn-primary" id="btn-inject-wp">Inject Waypoint</button>
+          </form>
+        </div>
+
+        <!-- Console logs / Raw packet feed -->
+        <div class="console-sub-section log-section">
+          <h3>Uplink / Downlink Serial Log</h3>
+          <div class="console-terminal" id="terminal-feed">
+            <div class="terminal-line system-line">[08:40:02] INITIALIZING AVR CORE...</div>
+            <div class="terminal-line system-line">[08:40:03] SPEKTRUM RC LINK: DISCONNECTED</div>
+            <div class="terminal-line system-line">[08:40:04] LOCAL TELEMETRY SERVER HOSTED AT HTTP://0.0.0.0:5000</div>
+          </div>
+        </div>
+
+        <!-- Direct Packet Injector -->
+        <div class="console-sub-section">
+          <h3>MeshCore Command Frame Injector</h3>
+          <div class="packet-injector">
+            <input type="text" placeholder="e.g. $NAV:WP,04,27.76,-82.63*6A" id="input-packet">
+            <button class="btn btn-primary" id="btn-inject-packet">Send Frame</button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Script references -->
+  <script src="app.js"></script>
+</body>
+</html>
