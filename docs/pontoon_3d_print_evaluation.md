@@ -84,3 +84,6 @@ FDM parts printed in Nylon 12 (PA12) or Carbon-Fiber Nylon (PA12-CF) can be post
 3D printing the hulls is **feasible but labor-intensive**. If you have the print capacity and workspace to handle epoxy coating, printing in **ASA** with a central tension spar offers the best buoyancy-to-weight ratio. 
 
 However, from a reliability and engineering simplicity standpoint, switching to **SDR-35 PVC pipe** (commonly used for gravity sewer systems) is the superior compromise. It features a thin 6.1mm wall, weighs only 3.8 kg/m, is completely watertight, requires zero prints/seams, and maintains high impact resistance at a lower cost.
+
+> [!CAUTION]
+> **SDR-35 vs. Schedule 40 Sizing Trap**: When purchasing SDR-35 pipe, note that its outer diameter is **8.400 in (213.4 mm)**, whereas standard 8" Schedule 40 PVC has an OD of **8.625 in (219.1 mm)**. Standard Schedule 40 end caps will not fit SDR-35. Custom 3D-printed dome caps with a 213.4 mm ID must be fabricated, and all bracket/collar diameters in the OpenSCAD files must be scaled to `pvc_od = 213.4` to prevent clamping play.

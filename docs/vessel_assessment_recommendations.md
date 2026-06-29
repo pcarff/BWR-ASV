@@ -76,7 +76,9 @@ SunChallenger II is a 16ft (4.8m) catamaran designed for autonomous marine obser
 To integrate the lessons from SeaCharger, SunChallenger II, and our structural evaluations, we recommend the following modifications to the BWR ASV specifications:
 
 ### 4.1 Structural Hulls: Adopt SDR-35 PVC
-*   **SDR-35 PVC Baseline**: Rather than heavy Schedule 40 PVC or high-labor modular 3D printing, standardize the baseline hulls on thin-walled **SDR-35 PVC pipe** (3.8 kg/m). This saves 44 kg over Schedule 40, ensuring a safe draft (~ 55\%) while retaining the impact resistance of continuous extruded plastic.
+*   **SDR-35 PVC Baseline**: Rather than heavy Schedule 40 PVC or high-labor modular 3D printing, standardize the baseline hulls on thin-walled **SDR-35 PVC pipe** (3.8 kg/m). This saves 44 kg over Schedule 40, ensuring a safe draft (~ 55%) while retaining the impact resistance of continuous extruded plastic.
+*   > [!CAUTION]
+    > **SDR-35 vs. Schedule 40 Dimensional Mismatch Trap**: Although both are nominally "8-inch" pipes, their actual outer diameters differ. 8" Schedule 40 has an OD of **219.1 mm (8.625 in)**, while 8" SDR-35 has an OD of **213.4 mm (8.400 in)**. Standard 8" Schedule 40 slip-on caps will not fit SDR-35 pipe (leaving a sloppy 2.8 mm radial gap). You must use custom 3D-printed dome caps (designed with a 213.4 mm ID) and adjust the CAD mounting bracket parameters in OpenSCAD (`pvc_od = 213.4`) to prevent the hulls from slipping.
 *   *Note*: The modular 3D-printed ASA hull remains a viable high-performance alternative if weight-minimization and internal bulkheads are prioritized, provided they are sealed in marine epoxy and reinforced with central tension spars.
 
 ### 4.2 Propulsion & Steering: Rudderless, Potted Motors

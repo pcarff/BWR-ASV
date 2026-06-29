@@ -11,7 +11,8 @@ This document outlines the detailed mechanical, electrical, and telemetry specif
 ## 1. Physical & Hydrodynamic Specifications
 
 ### 1.1 Dimensions & Hull Layout
-*   **Outboard Pontoons**: Dual 6-inch (150mm nominal / 168.3mm OD) SDR-35 PVC pipes, 2.53m length, spaced **800mm center-to-center** (overall beam width of 1.0m at the frame, and 1.2m including the hulls).
+*   **Outboard Pontoons**: Dual 6-inch (150mm nominal / 159.4mm OD) SDR-35 PVC pipes, 2.53m length, spaced **800mm center-to-center** (overall beam width of 1.0m at the frame, and 1.2m including the hulls).
+    *   *Sizing Caution*: 6" SDR-35 has an OD of **159.4 mm (6.275 in)** compared to 6" Schedule 40's **168.3 mm (6.625 in)**. Standard Schedule 40 slip-on caps will not fit SDR-35. Custom caps must be 3D-printed with a 159.4 mm ID, and bracket dimensions must be set to `pvc_od = 159.4` in the OpenSCAD models to ensure a secure fit.
 *   **Aerodynamic Bow Caps**: Custom 3D-printed **ASA** nose cones cemented to the front of each PVC pontoon. The bows feature a sharp, wave-piercing entry profile designed to slice through swells and prevent seaweed accumulation.
 *   **Swept-Back Foil Keel Fin**: A high-strength, swept-back flat metal foil plate (6061-T6 aluminum or 316 stainless steel, 8mm thickness, 400mm height) slung centerline. The fin is swept back at a **45° rake angle** so sargassum, weeds, and fishing lines naturally slide down and shed off the bottom.
 *   **Submerged Lead Ballast Bulb**: A compact, streamlined lead bulb (100mm diameter, 500mm length, slung at z = -450mm below the water line). Weight: **15.0 kg** of solid lead ballast encased in a fiberglass/epoxy protective shroud with a 3D-printed ASA nose/tail cone. The bulb contains **zero electrical or chemical components**.

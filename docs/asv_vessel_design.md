@@ -182,6 +182,7 @@ This design scales the baseline catamaran up by 15% to increase deck area while 
 
 #### Technical Specifications & Sizing
 * **Pontoon Hulls**: Dual 8-inch (200mm) SDR-35 PVC pipes (recommended for weight savings; see the [Hull 3D Printing & Weight Evaluation](file:///workspaces/BWR_ASV/docs/pontoon_3d_print_evaluation.md)), 2.53m length, sealed with domed end-caps.
+    *   *Sizing Caution*: 8" SDR-35 has an OD of **213.4 mm (8.400 in)** compared to 8" Schedule 40's **219.1 mm (8.625 in)**. Standard Schedule 40 slip-on caps will not fit SDR-35. Custom caps must be 3D-printed with a 213.4 mm ID, and bracket dimensions must be set to `pvc_od = 213.4`.
 * **Beam Width**: 1.6m (total overall width).
 * **Frame**: 2020 (20mm x 20mm) T-slot anodized aluminum extrusions.
 * **Solar Deck**: 4.1 m² rectangular flat deck made of 4mm Coroplast, supporting eight 100W flexible solar panels (4s2p wiring).
@@ -205,6 +206,7 @@ This design utilizes a long, narrow deck specifically optimized for standard-dim
 
 #### Technical Specifications & Sizing
 * **Pontoon Hulls**: Dual 6-inch (150mm) SDR-35 PVC pipes (recommended for weight savings; see the [Hull 3D Printing & Weight Evaluation](file:///workspaces/BWR_ASV/docs/pontoon_3d_print_evaluation.md)), 3.40m length, sealed with aerodynamic dome end-caps.
+    *   *Sizing Caution*: 6" SDR-35 has an OD of **159.4 mm (6.275 in)** compared to 6" Schedule 40's **168.3 mm (6.625 in)**. Standard Schedule 40 slip-on caps will not fit SDR-35. Custom caps must be 3D-printed with a 159.4 mm ID, and bracket dimensions must be set to `pvc_od = 159.4`.
 * **Beam Width**: 1.2m (sleeker aspect ratio to reduce wave-making resistance).
 * **Frame**: 2020 (20mm x 20mm) T-slot anodized aluminum.
 * **Solar Deck**: Long centerline corridor deck (3.0m  x  1.4m) holding four 200W flexible panels in an end-to-end centerline grid.
