@@ -181,7 +181,7 @@ This design scales the baseline catamaran up by 15% to increase deck area while 
 ![Option A: 2.53m Catamaran Blueprint](./asv_option_a_blueprint.png)
 
 #### Technical Specifications & Sizing
-* **Pontoon Hulls**: Dual 8-inch (200mm) SDR-35 PVC pipes (recommended for weight savings; see the [Hull 3D Printing & Weight Evaluation](file:///home/pcarff/.gemini/antigravity-ide/brain/c5a15662-1010-4b0d-a70a-d77a53272316/pontoon_3d_print_evaluation.md)), 2.53m length, sealed with domed end-caps.
+* **Pontoon Hulls**: Dual 8-inch (200mm) SDR-35 PVC pipes (recommended for weight savings; see the [Hull 3D Printing & Weight Evaluation](file:///workspaces/BWR_ASV/docs/pontoon_3d_print_evaluation.md)), 2.53m length, sealed with domed end-caps.
 * **Beam Width**: 1.6m (total overall width).
 * **Frame**: 2020 (20mm x 20mm) T-slot anodized aluminum extrusions.
 * **Solar Deck**: $4.1\text{ m}^2$ rectangular flat deck made of 4mm Coroplast, supporting eight 100W flexible solar panels (4s2p wiring).
@@ -204,7 +204,7 @@ This design utilizes a long, narrow deck specifically optimized for standard-dim
 ![Option B: 3.40m Centerline Catamaran Blueprint](./asv_option_b_blueprint.png)
 
 #### Technical Specifications & Sizing
-* **Pontoon Hulls**: Dual 6-inch (150mm) SDR-35 PVC pipes (recommended for weight savings; see the [Hull 3D Printing & Weight Evaluation](file:///home/pcarff/.gemini/antigravity-ide/brain/c5a15662-1010-4b0d-a70a-d77a53272316/pontoon_3d_print_evaluation.md)), 3.40m length, sealed with aerodynamic dome end-caps.
+* **Pontoon Hulls**: Dual 6-inch (150mm) SDR-35 PVC pipes (recommended for weight savings; see the [Hull 3D Printing & Weight Evaluation](file:///workspaces/BWR_ASV/docs/pontoon_3d_print_evaluation.md)), 3.40m length, sealed with aerodynamic dome end-caps.
 * **Beam Width**: 1.2m (sleeker aspect ratio to reduce wave-making resistance).
 * **Frame**: 2020 (20mm x 20mm) T-slot anodized aluminum.
 * **Solar Deck**: Long centerline corridor deck ($3.0\text{m} \times 1.4\text{m}$) holding four 200W flexible panels in an end-to-end centerline grid.
