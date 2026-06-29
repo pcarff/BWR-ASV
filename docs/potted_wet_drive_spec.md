@@ -88,6 +88,7 @@ $$\Delta T_{stator} = P_{loss} \cdot R_{thermal} \approx 10\text{ W} \cdot 0.05\
 4.  **Vacuum Degassing**: Place the mixed epoxy in a vacuum chamber. Pull a vacuum of $-29\text{ in Hg}$ and hold for 10 minutes. The epoxy will rise and collapse as air bubbles escape.
 5.  **Pouring & Curing**: Pour the degassed epoxy into the mold slowly from one side to prevent air pockets. Cure in a dry oven at $65^\circ\text{C}$ for 4 hours (or at room temperature for 24 hours).
 6.  **Turning**: Mount the cured stator on a lathe. Turn down the outer epoxy surface until the outer diameter is smooth and matches the target air-gap clearance.
+    *   *Epoxy and Plastic Turning Guidelines*: Stator epoxy turning shares similar thermal and tooling constraints with turning 3D-printed Nylon. Ensure the cutting tool is razor-sharp and take light, high-speed passes to prevent chipping or melting the resin. Refer to the [3D Printing Reference Document](file:///workspaces/BWR_ASV/docs/pontoon_3d_print_evaluation.md#L68-L76) for specific tooling parameters.
 
 ### 3.2 Ceramic Bearing Fitting
 1.  Use **full $ZrO_2$ (Zirconium Dioxide) open bearings** ($8\text{mm} \times 16\text{mm} \times 5\text{mm}$).

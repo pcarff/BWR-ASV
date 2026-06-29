@@ -79,6 +79,7 @@ $$P_{eddy} \propto \frac{B^2 f^2 d^2}{\rho}$$
 ### 3.1 Dry Chamber Machining & Alignment
 1.  **Chamber Preparation**: Cut the 3-inch SDR-35 PVC pipe to length. Machine the inner face to receive the Delrin end cap gland.
 2.  **Barrier Cap Machining**: Lathe-machine the Delrin end cap. Turn down the front face where the magnets overlap to a wall thickness of exactly $1.5\text{ mm}$. Machine the radial O-ring grooves to a depth of $2.02\text{ mm}$.
+    *   *Alternative (3D-Printed Nylon)*: If 3D printing the barrier cap in PA12 or PA12-CF, print the part solid (100% infill) and slightly oversized. Post-machine the O-ring grooves and sealing faces on a lathe using sharp carbide tooling and a high feed rate to avoid melting, then seal the part in marine epoxy. Refer to the [3D Printing Reference Document](file:///workspaces/BWR_ASV/docs/pontoon_3d_print_evaluation.md#L68-L76) for specific plastic lathe turning settings.
 3.  **Internal Hub Assembly**: Secure the 12 internal N52 magnets to the mild steel back-iron ring using high-strength retaining compound (Loctite 680). Mount the hub onto the brushless motor shaft.
 4.  **Dry Assembly**: Install the motor in the PVC chamber. Push the Delrin cap into the chamber until it is flush, checking that the air gap between the internal magnets and the cap face is exactly $0.5\text{ mm}$.
 
